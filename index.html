@@ -4,55 +4,68 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Bio Generator</title>
-    <meta name="description" content="Generate creative Instagram bios with AI.">
     <style>
-        body { font-family: sans-serif; margin: 20px; background-color: #f4f4f4; color: #333; }
-        .container { max-width: 600px; margin: auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-        h1 { color: #5B5BFD; text-align: center; margin-bottom: 25px; }
-        label { display: block; margin-bottom: 8px; font-weight: bold; }
-        input[type="text"], select, textarea { width: 100%; padding: 10px; margin-bottom: 20px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box; }
-        textarea { resize: vertical; min-height: 80px; }
-        button { background-color: #5B5BFD; color: white; padding: 12px 20px; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; width: 100%; }
-        button:hover { background-color: #4a4adf; }
-        #result { margin-top: 20px; padding: 15px; background-color: #e8f5e9; border: 1px solid #c8e6c9; border-radius: 4px; display: none; }
-        .price-tag { text-align: center; margin-top: 20px; font-size: 1.1em; color: #555; }
+        body { font-family: sans-serif; margin: 2em; line-height: 1.6; background-color: #f4f4f4; color: #333; }
+        h1 { color: #333; text-align: center; margin-bottom: 1em; }
+        .container { max-width: 700px; margin: auto; background: #fff; padding: 2em; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        label { display: block; margin-bottom: 0.5em; font-weight: bold; }
+        input[type="text"], select, textarea { width: calc(100% - 20px); padding: 10px; margin-bottom: 1em; border: 1px solid #ddd; border-radius: 4px; }
+        button { padding: 12px 20px; background-color: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; margin-top: 1em; width: 100%; }
+        button:hover { background-color: #0056b3; }
+        #output { margin-top: 2em; padding: 1em; background-color: #e9ecef; border-radius: 4px; white-space: pre-wrap; word-wrap: break-word; }
+        .price { text-align: center; margin-top: 1.5em; font-size: 1.2em; font-weight: bold; color: #d63384; }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>AI Instagram Bio Generator</h1>
-        <p class="price-tag">Price: $9.99 per bio</p>
+        <h1>Craft Your Perfect Instagram Bio with AI!</h1>
+        <p>Enter your details and let our AI generate amazing bios for you.</p>
         <form id="bioForm">
-            <label for="keywords">Keywords/Interests (comma-separated):</label>
-            <input type="text" id="keywords" placeholder="e.g., tech, travel, food, dogs" required>
+            <label for="keywords">Keywords (comma-separated):</label>
+            <input type="text" id="keywords" placeholder="e.g., travel, photography, food, entrepreneur" required>
 
-            <label for="tone">Desired Tone:</label>
+            <label for="tone">Preferred Tone:</label>
             <select id="tone" required>
+                <option value="">Select Tone</option>
                 <option value="professional">Professional</option>
                 <option value="funny">Funny</option>
-                <option value="aesthetic">Aesthetic</option>
-                <option value="creative">Creative</option>
+                <option value="quirky">Quirky</option>
+                <option value="inspirational">Inspirational</option>
                 <option value="casual">Casual</option>
             </select>
 
-            <label for="length">Length Preference (optional):</label>
-            <input type="text" id="length" placeholder="e.g., short, medium, long">
-
-            <button type="submit">Generate Bio</button>
+            <label for="emoji">Emoji Preference:</label>
+            <select id="emoji" required>
+                <option value="yes">Use Emojis</option>
+                <option value="no">No Emojis</option>
+                <option value="moderate">Moderate Emojis</option>
+            </select>
+            
+            <p class="price">Price: $9.99 per generation</p>
+            <button type="submit">Generate Bios</button>
         </form>
-
-        <div id="result">
-            <label>Your New Bio:</label>
-            <textarea id="generatedBio" readonly></textarea>
-        </div>
+        <div id="output"></div>
     </div>
+
     <script>
-        document.getElementById('bioForm').addEventListener('submit', async function(event) {
-            event.preventDefault();
-            alert('Demo version: Bio generation requires payment. This is a placeholder for a real integration.');
-            // In a real application, this would trigger a payment flow and then an API call.
-            document.getElementById('generatedBio').value = "🚀 Tech enthusiast | 🌍 Explorer | ☕ Coffee lover | Turning ideas into reality. (This is a sample bio)";
-            document.getElementById('result').style.display = 'block';
+        document.getElementById('bioForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const keywords = document.getElementById('keywords').value;
+            const tone = document.getElementById('tone').value;
+            const emoji = document.getElementById('emoji').value;
+
+            document.getElementById('output').innerText = 'Generating your bios... please wait.';
+
+            // In a real application, this would send data to a backend via fetch and handle payment.
+            // For this static demo, we simulate a response.
+            setTimeout(() => {
+                const dummyBios = [
+                    `Wanderlust-infused 🌍 | Capturing moments, one click at a time 📸 | Foodie adventures & good vibes ✨`,
+                    `Professional storyteller | Helping brands shine ✨ | Coffee in one hand, dreams in the other ☕`,
+                    `Just a human being | Trying to do good | And maybe make you smile 😄`
+                ];
+                document.getElementById('output').innerHTML = dummyBios.map(bio => `<p>${bio}</p>`).join('<hr>');
+            }, 2000);
         });
     </script>
 </body>
