@@ -1,11 +1,5 @@
-# BioGenius AI
+# BioBoost AI
 
-BioGenius AI helps Instagram users create unique, engaging, and discoverable bios using AI. Input your keywords and niche, and let our intelligent system craft the perfect bio for you.
+BioBoost AI is an AI-powered web application that generates creative and effective Instagram bios. Simply enter a few keywords describing yourself (e.g., 'photographer', 'traveler', 'startup founder'), and our AI will provide several unique bio variations tailored to your needs. Priced at $9.99 for a one-time purchase to unlock full features and unlimited generations.
 
-## Features
-- AI-powered bio generation
-- Optimized for Instagram discoverability
-- Simple and intuitive user interface
-
-## Get Started
-Visit [BioGenius.ai](link-to-deployed-app) to try it out! Enter your details and get instant bio suggestions.
+Enhance your social media presence quickly and effortlessly with BioBoost AI.
