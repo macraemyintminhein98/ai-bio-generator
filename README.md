@@ -1,11 +1,11 @@
-# InstaBio AI
+# BioGenius AI
 
-Generate creative and engaging Instagram bios using AI, tailored to your keywords, profession, interests, and desired tone. Enhance your online presence instantly!
+BioGenius AI helps Instagram users create unique, engaging, and discoverable bios using AI. Input your keywords and niche, and let our intelligent system craft the perfect bio for you.
 
-**How it works:**
-1. Enter your details.
-2. Choose a tone.
-3. Get a unique AI-generated Instagram bio.
-4. Purchase more generations for just $9.99.
+## Features
+- AI-powered bio generation
+- Optimized for Instagram discoverability
+- Simple and intuitive user interface
 
-Built with simple HTML/CSS/JS and powered by a backend LLM integration (not included in this frontend build).
+## Get Started
+Visit [BioGenius.ai](link-to-deployed-app) to try it out! Enter your details and get instant bio suggestions.
