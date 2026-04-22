@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Bio Generator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css">
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+    <div class="bg-white p-8 rounded-lg shadow-md max-w-md w-full text-center">
+        <h1 class="text-3xl font-bold mb-4">InstaBio AI</h1>
+        <p class="text-gray-600 mb-6">Craft the perfect Instagram bio with AI!</p>
+        <form id="bioForm">
+            <input type="text" id="keywords" placeholder="Keywords (e.g., foodie, travel, entrepreneur)" class="w-full p-3 mb-4 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <select id="tone" class="w-full p-3 mb-4 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <option value="">Select Tone</option>
+                <option value="funny">Funny</option>
+                <option value="professional">Professional</option>
+                <option value="aesthetic">Aesthetic</option>
+                <option value="creative">Creative</option>
+            </select>
+            <textarea id="result" readonly class="w-full p-3 mb-4 border rounded-md h-32 resize-none bg-gray-50"></textarea>
+            <a href="/checkout" class="bg-blue-600 text-white px-6 py-3 rounded-md hover:bg-blue-700 transition-colors duration-200">Get Your Bio Now - $4.99</a>
+        </form>
+        <p class="text-sm text-gray-500 mt-4">*This is a demo. Actual generation and checkout not functional.</p>
+    </div>
+</body>
+</html>
