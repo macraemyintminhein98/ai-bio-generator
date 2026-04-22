@@ -1,14 +1,19 @@
-# BioBoost AI
+# InstaBio AI
 
-Craft compelling Instagram bios with the power of AI! BioBoost AI helps individuals, influencers, and businesses generate creative and engaging bios tailored to their keywords and desired tone (e.g., 'funny', 'professional', 'wanderlust'). Simply input your preferences, click generate, and get a fresh new bio in seconds. 
+InstaBio AI is an AI-powered Instagram bio generator designed to help you create captivating and engaging bios effortlessly. Simply input your interests, profession, and preferred style, and our tool, using advanced AI, will craft the perfect bio for you.
 
-This simple web tool is the front-end for a powerful AI bio generator, designed for a seamless user experience. Future integrations include OpenAI API for dynamic generation and Stripe for secure payments.
+This project aims to provide social media influencers, small business owners, and individuals with a quick and affordable way to refresh their online presence.
 
-## Features:
-*   Input keywords to guide AI generation.
-*   Select a desired tone for your bio.
-*   Generate engaging bios instantly.
-*   Convenient copy-to-clipboard functionality.
+## Features (Planned)
 
-## Getting Started:
-Clone the repository and open `index.html` in your browser. Note: The current version uses mock data for demonstration purposes; API integration for actual AI generation is planned.
+*   **AI-Powered Generation:** Leverages GPT-3.5 for creative bio suggestions.
+*   **Style Options:** Choose from witty, professional, minimalist, and more.
+*   **Copy-to-Clipboard:** Easily copy your generated bio.
+*   **Secure Payments:** One-time payment integration via Stripe.
+
+## How to Use (Once Built)
+
+1.  Enter your details (interests, profession, mood).
+2.  Select your desired style.
+3.  Click 'Generate Bio'.
+4.  Copy your new bio and update your Instagram profile!
