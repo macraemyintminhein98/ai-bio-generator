@@ -4,86 +4,75 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BioBoost AI</title>
-    <meta name="description" content="Generate creative Instagram bios instantly.">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✨</text></svg>">
     <style>
-        body { font-family: 'Inter', sans-serif; margin: 0; padding: 0; background-color: #f7fafc; color: #2d3748; display: flex; flex-direction: column; min-height: 100vh; }
-        .container { max-width: 800px; margin: auto; padding: 20px; text-align: center; flex-grow: 1; display: flex; flex-direction: column; justify-content: center; }
-        h1 { font-size: 2.5em; color: #2c5282; margin-bottom: 10px; }
-        p { font-size: 1.1em; margin-bottom: 30px; line-height: 1.6; }
-        .input-group { margin-bottom: 20px; display: flex; justify-content: center; }
-        input[type="text"] { width: 70%; padding: 12px; border: 1px solid #cbd5e0; border-radius: 8px 0 0 8px; font-size: 1em; outline: none; }
-        button { padding: 12px 20px; background-color: #4299e1; color: white; border: none; border-radius: 0 8px 8px 0; cursor: pointer; font-size: 1em; transition: background-color 0.3s ease; }
-        button:hover { background-color: #3182ce; }
-        .output-box { border: 1px solid #e2e8f0; border-radius: 8px; padding: 20px; min-height: 100px; text-align: left; background-color: white; margin-top: 20px; white-space: pre-wrap; word-wrap: break-word; }
-        .cta-button { background-color: #38a169; margin-top: 30px; padding: 15px 30px; font-size: 1.2em; border-radius: 8px; text-decoration: none; color: white; display: inline-block; cursor: pointer; transition: background-color 0.3s ease; border: none;}
-        .cta-button:hover { background-color: #2f855a; }
-        footer { margin-top: 40px; padding: 20px; font-size: 0.9em; color: #718096; background-color: #edf2f7; }
-        @media (max-width: 600px) {
-            h1 { font-size: 2em; }
-            p { font-size: 1em; }
-            .input-group { flex-direction: column; align-items: center;}
-            input[type="text"] { width: 90%; border-radius: 8px; margin-bottom: 10px; }
-            button { width: 90%; border-radius: 8px; }
-        }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 20px; background-color: #f7f7f7; color: #333; display: flex; flex-direction: column; align-items: center; min-height: 100vh; }
+        h1 { color: #5a5a5a; margin-bottom: 25px; font-size: 2.2em; text-align: center; }
+        .container { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); max-width: 600px; width: 100%; text-align: center; }
+        textarea, select, button { width: calc(100% - 20px); padding: 12px; margin-bottom: 15px; border-radius: 8px; border: 1px solid #ddd; font-size: 1em; box-sizing: border-box; }
+        textarea { min-height: 100px; resize: vertical; }
+        button { background-color: #6a11cb; color: white; border: none; cursor: pointer; transition: background-color 0.3s ease; }
+        button:hover { background-color: #2575fc; }
+        #output { background-color: #e9ecef; padding: 15px; border-radius: 8px; border: 1px solid #dee2e6; text-align: left; word-wrap: break-word; min-height: 50px; display: flex; align-items: center; justify-content: center; color: #555; font-style: italic; }
+        .copy-btn { background-color: #28a745; margin-top: 10px; display: none; }
+        .copy-btn:hover { background-color: #218838; }
+        footer { margin-top: 40px; font-size: 0.8em; color: #888; }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>BioBoost AI</h1>
-        <p>Unlock your perfect Instagram bio. Simply tell us about yourself, and our AI will craft compelling options.</p>
-        <div class="input-group">
-            <input type="text" id="keywords" placeholder="e.g., photographer, traveler, tech enthusiast">
-            <button onclick="generateBio()">Generate Bio</button>
-        </div>
-        <div class="output-box" id="bioOutput">Your generated bios will appear here...</div>
-        <button class="cta-button" onclick="checkout()">Get More Bios - $9.99</button>
+        <h1>✨ BioBoost AI</h1>
+        <p>Craft the perfect Instagram bio with AI.</p>
+        <textarea id="keywords" placeholder="Keywords (e.g., 'travel, food, dog lover')"></textarea>
+        <select id="tone">
+            <option value="professional">Professional</option>
+            <option value="funny">Funny</option>
+            <option value="wanderlust">Wanderlust</option>
+            <option value="creative">Creative</option>
+            <option value="minimalist">Minimalist</option>
+        </select>
+        <button onclick="generateBio()">Generate Bio</button>
+        <div id="output">Your AI-generated bio will appear here.</div>
+        <button class="copy-btn" onclick="copyBio()" id="copyButton">Copy Bio</button>
     </div>
     <footer>
-        &copy; 2023 BioBoost AI. All rights reserved.
+        &copy; 2024 BioBoost AI. All rights reserved.
     </footer>
-
     <script>
-        function generateBio() {
+        async function generateBio() {
             const keywords = document.getElementById('keywords').value;
-            const outputDiv = document.getElementById('bioOutput');
-            outputDiv.innerHTML = 'Generating amazing bios...';
+            const tone = document.getElementById('tone').value;
+            const outputDiv = document.getElementById('output');
+            const copyBtn = document.getElementById('copyButton');
+            outputDiv.textContent = 'Generating...';
+            copyBtn.style.display = 'none';
 
-            // In a real application, this would make an API call to your backend AI.
-            // For this demo, we'll simulate a response.
+            // This is a placeholder. In a real app, this would call a backend API.
+            // Example: try { const response = await fetch('/api/generate-bio', { method: 'POST', body: JSON.stringify({ keywords, tone }), headers: { 'Content-Type': 'application/json' } }); const data = await response.json(); outputDiv.textContent = data.bio; copyBtn.style.display = 'block'; } catch (error) { outputDiv.textContent = 'Error generating bio.'; } 
+            
+            // Mock API response for front-end demo:
             setTimeout(() => {
-                if (keywords.toLowerCase().includes('photographer')) {
-                    outputDiv.innerHTML = `
-                    📸 Capturing moments, creating memories.\nArtist behind the lens.\nAlways seeking beauty.
-
-                    ✨ Visionary Photographer | Storyteller | Adventure Seeker.\nMaking every frame count. Let's connect!
-                    `;
-                } else if (keywords.toLowerCase().includes('traveler')) {
-                    outputDiv.innerHTML = `
-                    ✈️ Wanderlust soul, exploring the world one city at a time.\nSharing my adventures & tips! #TravelBug
-
-                    🌍 Global Explorer | Solo Traveler | Culture Enthusiast.\nCollecting passport stamps & unforgettable experiences.
-                    `;
-                } else if (keywords.toLowerCase().includes('startup founder')) {
-                    outputDiv.innerHTML = `
-                    🚀 Building the future, one innovation at a time.\nFounder of [Your Startup].\nDriven by passion & purpose.
-
-                    💡 Entrepreneur | Tech Innovator | Problem Solver.\nTransforming ideas into impact. Join the journey!
-                    `;
-                } else {
-                    outputDiv.innerHTML = `
-                    ✨ Living my best life, one day at a time.\nSpread love & good vibes.
-
-                    🌟 Creator | Dreamer | Doer.\nSharing my journey & passions with the world.
-                    `;
-                }
+                const mockBios = [
+                    `Wanderer ✈️🌎 |  Chasing sunsets & good food 🍔 | Spreading positive vibes ✨`,
+                    `Laughing my way through life 😂 | Professional napper 😴 |  Powered by coffee & sarcasm. `,
+                    `Building the future, one byte at a time 💻 | Innovator & Problem Solver | Connect with me 👇`,
+                    `Lover of all things beautiful 🎨 | Creating my own sunshine ☀️ |  Let's inspire each other.`
+                ];
+                const randomIndex = Math.floor(Math.random() * mockBios.length);
+                outputDiv.textContent = mockBios[randomIndex];
+                copyBtn.style.display = 'block';
             }, 1500);
         }
 
-        function checkout() {
-            // In a real application, this would redirect to your Stripe checkout page.
-            alert('Redirecting to secure checkout for $9.99! (Demo Mode)');
-            // window.location.href = 'YOUR_STRIPE_CHECKOUT_URL';
+        function copyBio() {
+            const outputDiv = document.getElementById('output');
+            navigator.clipboard.writeText(outputDiv.textContent)
+                .then(() => {
+                    alert('Bio copied to clipboard!');
+                })
+                .catch(err => {
+                    console.error('Failed to copy: ', err);
+                });
         }
     </script>
 </body>
