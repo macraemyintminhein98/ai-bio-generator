@@ -1,18 +1,11 @@
-# BioBoost AI
+# InstaBio AI
 
-**Craft your perfect Instagram bio instantly with AI!** 
+Generate creative and engaging Instagram bios using AI, tailored to your keywords, profession, interests, and desired tone. Enhance your online presence instantly!
 
-BioBoost AI is a web tool designed to help social media users, influencers, and small business owners generate creative and engaging Instagram bios. Simply input keywords describing your interests, niche, and desired tone, and our AI will craft unique bio options tailored just for you.
+**How it works:**
+1. Enter your details.
+2. Choose a tone.
+3. Get a unique AI-generated Instagram bio.
+4. Purchase more generations for just $9.99.
 
-## Features:
-- AI-powered bio generation based on keywords.
-- Easy-to-use interface.
-- Instant results with multiple bio suggestions.
-
-## How it Works:
-1. Enter keywords that describe you (e.g., 'tech entrepreneur, funny, dog lover').
-2. Click 'Generate My Bio!'
-3. Receive unique, AI-crafted Instagram bios.
-4. Copy your favorite and update your profile!
-
-Get started on Project BioBoost AI today and elevate your Instagram presence!
+Built with simple HTML/CSS/JS and powered by a backend LLM integration (not included in this frontend build).
