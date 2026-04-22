@@ -1,19 +1,28 @@
-# InstaBio AI
+# AI Instagram Bio Generator
 
-InstaBio AI is an AI-powered Instagram bio generator designed to help you create captivating and engaging bios effortlessly. Simply input your interests, profession, and preferred style, and our tool, using advanced AI, will craft the perfect bio for you.
+A web tool that generates creative and engaging Instagram bios using AI, tailored to user keywords and desired tone.
 
-This project aims to provide social media influencers, small business owners, and individuals with a quick and affordable way to refresh their online presence.
+## Features
+- Input keywords/interests
+- Select desired tone (e.g., funny, professional, aesthetic)
+- Receive an AI-generated Instagram bio
 
-## Features (Planned)
+## How It Works (Conceptual)
+1. User inputs details and submits the form.
+2. Payment is processed (e.g., via Stripe).
+3. A serverless function (e.g., Vercel Edge Function) calls an AI API (like OpenAI's GPT).
+4. The generated bio is returned and displayed to the user.
 
-*   **AI-Powered Generation:** Leverages GPT-3.5 for creative bio suggestions.
-*   **Style Options:** Choose from witty, professional, minimalist, and more.
-*   **Copy-to-Clipboard:** Easily copy your generated bio.
-*   **Secure Payments:** One-time payment integration via Stripe.
+## Setup (Development)
+This project is primarily a static HTML example. A full implementation would involve:
+1. A Vercel/Next.js frontend.
+2. Backend integration with a payment gateway (Stripe).
+3. AI API (OpenAI GPT-3.5-turbo or similar) integration via a serverless function.
 
-## How to Use (Once Built)
+This `index.html` showcases the front-end interface.
 
-1.  Enter your details (interests, profession, mood).
-2.  Select your desired style.
-3.  Click 'Generate Bio'.
-4.  Copy your new bio and update your Instagram profile!
+## Technologies (Planned)
+- Frontend: React/Next.js (for a full product)
+- Backend: Vercel Edge Functions or other serverless functions
+- AI: OpenAI GPT-3.5-turbo (or similar)
+- Payments: Stripe
