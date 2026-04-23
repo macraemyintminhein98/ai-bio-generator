@@ -3,65 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BioGenius AI - Instagram Bio Generator</title>
-    <meta name="description" content="Generate creative and engaging Instagram bios using AI.">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
-    <style>
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; line-height: 1.6; color: #333; background-color: #f7f7f7; margin: 0; padding: 20px; text-align: center; }
-        .container { max-width: 800px; margin: 20px auto; background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
-        h1 { color: #5B4F D2; margin-bottom: 20px; }
-        p { margin-bottom: 25px; font-size: 1.1em; }
-        .form-section { display: flex; flex-direction: column; gap: 15px; margin-bottom: 30px; text-align: left; }
-        label { font-weight: bold; color: #555; }
-        input[type="text"], textarea { width: calc(100% - 22px); padding: 12px; border: 1px solid #ddd; border-radius: 5px; font-size: 1em; }
-        textarea { resize: vertical; min-height: 80px; }
-        button { background-color: #6C63FF; color: white; padding: 12px 25px; border: none; border-radius: 5px; font-size: 1.1em; cursor: pointer; transition: background-color 0.3s ease; display: inline-block; margin-top: 10px; }
-        button:hover { background-color: #5B4F D2; }
-        #bio-output { margin-top: 30px; padding: 20px; border: 1px dashed #6C63FF; border-radius: 8px; background-color: #f0f0ff; min-height: 100px; text-align: left; }
-        .stripe-button { background-color: #6772E5; }
-        .stripe-button:hover { background-color: #5460E0; }
-    </style>
+    <title>BioGenius AI</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✨</text></svg>">
 </head>
-<body>
-    <div class="container">
-        <h1>BioGenius AI</h1>
-        <p>Unlock your perfect Instagram bio with the power of AI!</p>
-        <div class="form-section">
-            <label for="keywords">Keywords/Interests (e.g., 'travel', 'foodie', 'entrepreneur'):</label>
-            <input type="text" id="keywords" placeholder="Separate with commas">
-            <label for="tone">Desired Tone (e.g., 'funny', 'professional', 'inspiring'):</label>
-            <input type="text" id="tone" placeholder="Creative, witty, serious...">
-            <label for="emojis">Emoji Preference (e.g., 'yes', 'no', 'a few'):</label>
-            <input type="text" id="emojis" placeholder="Yes, a few, no...">
+<body class="bg-gradient-to-br from-indigo-500 to-purple-600 min-h-screen flex items-center justify-center p-4">
+    <div class="bg-white rounded-lg shadow-xl p-8 max-w-md w-full text-center">
+        <h1 class="text-4xl font-extrabold text-gray-800 mb-4">BioGenius AI ✨</h1>
+        <p class="text-lg text-gray-600 mb-6">Craft your perfect Instagram bio, instantly.</p>
+        <div class="space-y-4 mb-6">
+            <input type="text" placeholder="Keywords (e.g., travel, entrepreneur)" class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500">
+            <select class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                <option value="">Select Tone</option>
+                <option value="funny">Funny 😂</option>
+                <option value="professional">Professional 👔</option>
+                <option value="quirky">Quirky 🤪</option>
+                <option value="inspirational">Inspirational ✨</option>
+            </select>
         </div>
-        <button onclick="generateBio()">Generate Bio Ideas</button>
-        <div id="bio-output">
-            Your AI-generated Instagram bios will appear here!
-            <br><br>
-            Ready to get unlimited bios and unlock premium features?
-            <button class="stripe-button" onclick="checkout()">Buy Now ($9.99)</button>
+        <button class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-6 rounded-lg text-lg transition duration-300 ease-in-out w-full mb-4">
+            Generate Bio
+        </button>
+        <div id="bio-output" class="bg-gray-100 p-4 rounded-md text-left text-gray-700 min-h-[80px] flex items-center justify-center">
+            Your awesome bio will appear here!
         </div>
+        <p class="text-sm text-gray-500 mt-6">Get unlimited bios for just $9.99</p>
+        <button class="mt-3 bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-md transition duration-300 ease-in-out">
+            Unlock Unlimited Bios
+        </button>
     </div>
-    <script>
-        function generateBio() {
-            alert('Generating bios... (This is a demo. In a real app, AI would process your input here.)');
-            const outputDiv = document.getElementById('bio-output');
-            outputDiv.innerHTML = `
-                <h3>Here are some AI-generated bios for you:</h3>
-                <p>✨ Dreamer & Doer | Exploring the world one byte at a time 💻✈️ | Coffee-fueled creativity ☕</p>
-                <p>🚀 Building empires & breaking expectations. Entrepreneur by day, stargazer by night. Let's connect!</p>
-                <p>😄 Just a human, being human. Sharing laughs, adventures & good vibes. Find joy in the ordinary.</p>
-                <br>
-                Ready to get unlimited bios and unlock premium features?
-                <button class="stripe-button" onclick="checkout()">Buy Now ($9.99)</button>
-            `;
-        }
-
-        function checkout() {
-            alert('Initiating Stripe Checkout... (In a real app, this would redirect to Stripe.)');
-            // Implement actual Stripe checkout logic here.
-            // Example: fetch('/create-checkout-session', { method: 'POST' }).then(res => res.json()).then(data => window.location.href = data.url);
-        }
-    </script>
 </body>
 </html>
