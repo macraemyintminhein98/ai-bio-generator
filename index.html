@@ -3,36 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Bio Generator</title>
-    <meta name="description" content="Generate engaging and keyword-rich Instagram bios instantly with AI.">
+    <title>BioGenius AI - Instagram Bio Generator</title>
+    <meta name="description" content="Generate creative and engaging Instagram bios using AI.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
     <style>
-        body { font-family: sans-serif; margin: 0; padding: 20px; background-color: #f4f7f6; color: #333; }
-        .container { max-width: 700px; margin: 50px auto; background-color: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); text-align: center; }
-        h1 { color: #2c3e50; margin-bottom: 15px; font-size: 2em; }
-        p { margin-bottom: 25px; line-height: 1.6; font-size: 1.1em; color: #555; }
-        .cta-button { display: inline-block; background-color: #6a05ad; color: white; padding: 14px 28px; border-radius: 5px; text-decoration: none; font-weight: bold; font-size: 1.2em; transition: background-color 0.3s ease; border: none; cursor: pointer; margin-top: 10px; }
-        .cta-button:hover { background-color: #5a049a; }
-        .info-section { margin-top: 40px; padding-top: 20px; border-top: 1px solid #eee; text-align: left; }
-        .info-section h2 { color: #2c3e50; font-size: 1.5em; margin-bottom: 10px; }
-        .info-section ul { list-style: none; padding: 0; margin-top: 15px; }
-        .info-section li { margin-bottom: 10px; background-color: #f9f9f9; padding: 10px 15px; border-left: 3px solid #6a05ad; border-radius: 4px; }
-        @media (max-width: 600px) { .container { margin: 20px; padding: 20px; } h1 { font-size: 1.7em; } .cta-button { padding: 12px 20px; font-size: 1em; } }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; line-height: 1.6; color: #333; background-color: #f7f7f7; margin: 0; padding: 20px; text-align: center; }
+        .container { max-width: 800px; margin: 20px auto; background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+        h1 { color: #5B4F D2; margin-bottom: 20px; }
+        p { margin-bottom: 25px; font-size: 1.1em; }
+        .form-section { display: flex; flex-direction: column; gap: 15px; margin-bottom: 30px; text-align: left; }
+        label { font-weight: bold; color: #555; }
+        input[type="text"], textarea { width: calc(100% - 22px); padding: 12px; border: 1px solid #ddd; border-radius: 5px; font-size: 1em; }
+        textarea { resize: vertical; min-height: 80px; }
+        button { background-color: #6C63FF; color: white; padding: 12px 25px; border: none; border-radius: 5px; font-size: 1.1em; cursor: pointer; transition: background-color 0.3s ease; display: inline-block; margin-top: 10px; }
+        button:hover { background-color: #5B4F D2; }
+        #bio-output { margin-top: 30px; padding: 20px; border: 1px dashed #6C63FF; border-radius: 8px; background-color: #f0f0ff; min-height: 100px; text-align: left; }
+        .stripe-button { background-color: #6772E5; }
+        .stripe-button:hover { background-color: #5460E0; }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Elevate Your Instagram Bio with AI</h1>
-        <p>Craft the perfect, attention-grabbing Instagram bio in seconds. Whether you're a business, influencer, or just want to stand out, our AI-powered generator tailors bios to your unique style and goals.</p>
-        <a href="#" class="cta-button">Get Your AI Bio Now - $9.99</a>
-        <div class="info-section">
-            <h2>Why You Need This:</h2>
-            <ul>
-                <li><strong>Engage More Followers:</strong> Compelling bios convert visitors to followers.</li>
-                <li><strong>Save Time:</strong> No more struggling for the right words – let AI do the work.</li>
-                <li><strong>Keyword-Rich:</strong> Improve discoverability with relevant terms.</li>
-                <li><strong>Tailored to You:</strong> Input your niche, tone, and keywords for personalized results.</li>
-            </ul>
+        <h1>BioGenius AI</h1>
+        <p>Unlock your perfect Instagram bio with the power of AI!</p>
+        <div class="form-section">
+            <label for="keywords">Keywords/Interests (e.g., 'travel', 'foodie', 'entrepreneur'):</label>
+            <input type="text" id="keywords" placeholder="Separate with commas">
+            <label for="tone">Desired Tone (e.g., 'funny', 'professional', 'inspiring'):</label>
+            <input type="text" id="tone" placeholder="Creative, witty, serious...">
+            <label for="emojis">Emoji Preference (e.g., 'yes', 'no', 'a few'):</label>
+            <input type="text" id="emojis" placeholder="Yes, a few, no...">
+        </div>
+        <button onclick="generateBio()">Generate Bio Ideas</button>
+        <div id="bio-output">
+            Your AI-generated Instagram bios will appear here!
+            <br><br>
+            Ready to get unlimited bios and unlock premium features?
+            <button class="stripe-button" onclick="checkout()">Buy Now ($9.99)</button>
         </div>
     </div>
+    <script>
+        function generateBio() {
+            alert('Generating bios... (This is a demo. In a real app, AI would process your input here.)');
+            const outputDiv = document.getElementById('bio-output');
+            outputDiv.innerHTML = `
+                <h3>Here are some AI-generated bios for you:</h3>
+                <p>✨ Dreamer & Doer | Exploring the world one byte at a time 💻✈️ | Coffee-fueled creativity ☕</p>
+                <p>🚀 Building empires & breaking expectations. Entrepreneur by day, stargazer by night. Let's connect!</p>
+                <p>😄 Just a human, being human. Sharing laughs, adventures & good vibes. Find joy in the ordinary.</p>
+                <br>
+                Ready to get unlimited bios and unlock premium features?
+                <button class="stripe-button" onclick="checkout()">Buy Now ($9.99)</button>
+            `;
+        }
+
+        function checkout() {
+            alert('Initiating Stripe Checkout... (In a real app, this would redirect to Stripe.)');
+            // Implement actual Stripe checkout logic here.
+            // Example: fetch('/create-checkout-session', { method: 'POST' }).then(res => res.json()).then(data => window.location.href = data.url);
+        }
+    </script>
 </body>
 </html>
