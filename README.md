@@ -1,13 +1,15 @@
-# AI Bio Generator
+# BioSpark AI
 
-Generate creative and engaging Instagram bios using AI, tailored to your keywords and themes.
+BioSpark AI helps you generate creative and engaging Instagram bios using AI, based on your keywords. Perfect for influencers, small businesses, and anyone looking to refresh their profile. 
 
-## Features
+Simply enter your keywords, and let BioSpark AI craft multiple unique bio options for you.
 
-- **AI-Powered:** Craft unique bios effortlessly.
-- **Customizable:** Input keywords for personalized results.
-- **User-Friendly:** Simple interface for quick generation.
+## Features:
+- AI-powered bio generation
+- Multiple variations to choose from
+- Easy-to-use interface
 
-## Get Started
-
-Enter your keywords, generate a bio, and enhance your online presence. Unlock premium features and full bio generations for just $9.99.
+## How to Use:
+1. Enter keywords describing yourself or your brand.
+2. Click 'Generate Bios'.
+3. Copy and paste your favorite bio to Instagram!
