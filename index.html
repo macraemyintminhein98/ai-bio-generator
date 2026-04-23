@@ -4,56 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Bio Generator</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✨</text></svg>">
+    <meta name="description" content="Generate engaging and keyword-rich Instagram bios instantly with AI.">
     <style>
-        body { font-family: sans-serif; margin: 20px; color: #333; background-color: #f9f9f9; text-align: center; }
-        .container { max-width: 600px; margin: 0 auto; background-color: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
-        h1 { color: #5a20b0; margin-bottom: 20px; }
-        textarea { width: calc(100% - 22px); min-height: 80px; padding: 10px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 4px; resize: vertical; }
-        input[type="text"] { width: calc(100% - 22px); padding: 10px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 4px; }
-        button { background-color: #5a20b0; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; transition: background-color 0.3s ease; }
-        button:hover { background-color: #7d3edc; }
-        #results { margin-top: 25px; text-align: left; background-color: #f0f8ff; padding: 15px; border-radius: 4px; border: 1px dashed #c0ddee; display: none; }
-        .bio-item { margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid #eee; word-wrap: break-word; }
-        .bio-item:last-child { border-bottom: none; }
-        .cta { margin-top: 30px; font-size: 1.1em; color: #666; }
-        a { color: #5a20b0; text-decoration: none; }
-        a:hover { text-decoration: underline; }
+        body { font-family: sans-serif; margin: 0; padding: 20px; background-color: #f4f7f6; color: #333; }
+        .container { max-width: 700px; margin: 50px auto; background-color: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); text-align: center; }
+        h1 { color: #2c3e50; margin-bottom: 15px; font-size: 2em; }
+        p { margin-bottom: 25px; line-height: 1.6; font-size: 1.1em; color: #555; }
+        .cta-button { display: inline-block; background-color: #6a05ad; color: white; padding: 14px 28px; border-radius: 5px; text-decoration: none; font-weight: bold; font-size: 1.2em; transition: background-color 0.3s ease; border: none; cursor: pointer; margin-top: 10px; }
+        .cta-button:hover { background-color: #5a049a; }
+        .info-section { margin-top: 40px; padding-top: 20px; border-top: 1px solid #eee; text-align: left; }
+        .info-section h2 { color: #2c3e50; font-size: 1.5em; margin-bottom: 10px; }
+        .info-section ul { list-style: none; padding: 0; margin-top: 15px; }
+        .info-section li { margin-bottom: 10px; background-color: #f9f9f9; padding: 10px 15px; border-left: 3px solid #6a05ad; border-radius: 4px; }
+        @media (max-width: 600px) { .container { margin: 20px; padding: 20px; } h1 { font-size: 1.7em; } .cta-button { padding: 12px 20px; font-size: 1em; } }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>✨ BioSpark AI</h1>
-        <p>Generate creative Instagram bios effortlessly!</p>
-        <form id="bioForm">
-            <input type="text" id="keywords" placeholder="Keywords (e.g., photographer, traveler, foodie)" required>
-            <button type="submit">Generate Bios</button>
-        </form>
-        <div id="results">
-            <strong>Your AI-Generated Bios:</strong>
-            <div id="bioList"></div>
+        <h1>Elevate Your Instagram Bio with AI</h1>
+        <p>Craft the perfect, attention-grabbing Instagram bio in seconds. Whether you're a business, influencer, or just want to stand out, our AI-powered generator tailors bios to your unique style and goals.</p>
+        <a href="#" class="cta-button">Get Your AI Bio Now - $9.99</a>
+        <div class="info-section">
+            <h2>Why You Need This:</h2>
+            <ul>
+                <li><strong>Engage More Followers:</strong> Compelling bios convert visitors to followers.</li>
+                <li><strong>Save Time:</strong> No more struggling for the right words – let AI do the work.</li>
+                <li><strong>Keyword-Rich:</strong> Improve discoverability with relevant terms.</li>
+                <li><strong>Tailored to You:</strong> Input your niche, tone, and keywords for personalized results.</li>
+            </ul>
         </div>
-        <p class="cta">Ready to elevate your profile? <a href="#">Get BioSpark AI Premium!</a></p>
     </div>
-    <script>
-        document.getElementById('bioForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const keywords = document.getElementById('keywords').value;
-            const resultsDiv = document.getElementById('results');
-            const bioListDiv = document.getElementById('bioList');
-            bioListDiv.innerHTML = 'Loading creative bios...';
-            resultsDiv.style.display = 'block';
-
-            // Simulate API call (replace with actual API integration)
-            await new Promise(r => setTimeout(r, 1500)); 
-            const sampleBios = [
-                `Wanderlust & camera lens. Capturing moments, one adventure at a time. 📸✈️`, 
-                `Foodie by passion, explorer by nature. Turning flavors into stories. 🍜🌍`, 
-                `Life's a canvas, I'm just adding the colors. Artist | Creator | Dreamer. 🎨✨`
-            ];
-            
-            bioListDiv.innerHTML = sampleBios.map(bio => `<div class="bio-item">${bio}</div>`).join('');
-        });
-    </script>
 </body>
 </html>
