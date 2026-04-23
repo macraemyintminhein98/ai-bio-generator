@@ -1,11 +1,9 @@
-# AI Instagram Bio Generator
+# InstaBio AI
 
-Generate creative and engaging Instagram bios using AI! Tailor your bio with keywords and select a desired tone (witty, professional, inspiring, etc.). Perfect for influencers, businesses, and personal use.
+Generate creative, personalized Instagram bios in seconds using AI! Input your interests, desired mood, and any specific details, and let our powerful AI craft the perfect bio for your profile. Get noticed and express yourself uniquely with InstaBio AI.
 
-## How it Works
-
-1. Input keywords relevant to your profile.
-2. Select your preferred tone.
-3. Click 'Generate Bio' to receive an AI-powered Instagram bio.
-
-Built with Next.js (not shown in this basic HTML file, will be on Vercel), OpenAI GPT, and Stripe for secure payments.
+# How to Use
+1. Enter your interests and keywords.
+2. Describe the mood or vibe you want for your bio.
+3. Add any other relevant details or prompts.
+4. Click 'Generate Bio' and get inspired!
