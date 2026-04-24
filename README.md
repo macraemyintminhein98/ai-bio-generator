@@ -1,5 +1,13 @@
 # AI Bio Generator
 
-Craft unique, personalized Instagram bios with the power of AI. Simply input your keywords, desired tone, and emoji preferences, and let our tool generate engaging bios for your profile. Get started today and enhance your online presence!
+Instantly craft engaging and niche-specific Instagram bios using AI! Just tell us about yourself, and we'll generate creative options for your online presence. Perfect for influencers, businesses, and anyone looking for a fresh bio.
 
-This project is built with a simple HTML/CSS/JS frontend, powered by an underlying AI (LLM) API for bio generation, and integrated with Stripe Checkout for secure payments.
+## Features:
+- AI-powered bio generation
+- Input for profession, hobbies, vibes
+- Copy-to-clipboard functionality
+
+## How to Use:
+1. Enter details about yourself in the text area.
+2. Click 'Generate Bio'.
+3. Copy your favorite bio to your clipboard.
