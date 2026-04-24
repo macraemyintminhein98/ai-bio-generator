@@ -1,13 +1,18 @@
-# AI Bio Generator
+# BioBoost AI
 
-Instantly craft engaging and niche-specific Instagram bios using AI! Just tell us about yourself, and we'll generate creative options for your online presence. Perfect for influencers, businesses, and anyone looking for a fresh bio.
+BioBoost AI is an AI-powered Instagram bio generator designed for influencers, small business owners, and anyone looking to enhance their Instagram presence. 
 
-## Features:
-- AI-powered bio generation
-- Input for profession, hobbies, vibes
-- Copy-to-clipboard functionality
+**Features:**
+- AI-driven bio generation based on user keywords.
+- Simple and intuitive web interface.
+- Fast and engaging results.
 
-## How to Use:
-1. Enter details about yourself in the text area.
-2. Click 'Generate Bio'.
-3. Copy your favorite bio to your clipboard.
+**Getting Started:**
+Currently, this is a placeholder for the upcoming BioBoost AI application. Users will submit keywords, and the AI will craft a personalized Instagram bio. 
+
+**Future Development:**
+- Integration with a language model API (e.g., Hugging Face, OpenAI).
+- Secure payment processing via Stripe Checkout.
+- Deployment on Vercel with Next.js/React frontend.
+
+Stay tuned for the full launch!
