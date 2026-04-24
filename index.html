@@ -3,77 +3,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BioGenius AI</title>
+    <title>BioGenie - AI Instagram Bio Generator</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='-.1em' x='-.05em' font-size='110' fill='%23000'%3E%F0%9F%AA%84%3C/text%3E%3C/svg%3E">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <style>
-        body { background-color: #f7fafc; }
+        body { font-family: sans-serif; }
+        #loading { display: none; }
     </style>
 </head>
-<body class="flex flex-col items-center justify-center min-h-screen p-4">
-    <h1 class="text-4xl font-bold mb-6 text-gray-800">BioGenius AI</h1>
-    <p class="text-xl mb-8 text-gray-600 text-center">Craft your perfect Instagram bio, instantly.</p>
-    
-    <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
-        <form id="bio-form" class="space-y-4">
-            <div>
-                <label for="keywords" class="block text-sm font-medium text-gray-700">Keywords (e.g., photographer, travel):</label>
-                <input type="text" id="keywords" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" placeholder="photographer, travel" required>
-            </div>
-            <div>
-                <label for="tone" class="block text-sm font-medium text-gray-700">Desired Tone:</label>
-                <select id="tone" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2">
-                    <option value="witty">Witty</option>
-                    <option value="inspirational">Inspirational</option>
-                    <option value="minimalist">Minimalist</option>
-                    <option value="funny">Funny</option>
-                </select>
-            </div>
-            <button type="submit" class="w-full bg-blue-600 text-white p-2 rounded-md hover:bg-blue-700 font-medium">Generate Bios</button>
-        </form>
-
-        <div id="results" class="mt-6 space-y-4 hidden">
-            <h2 class="text-2xl font-bold text-gray-800">Your New Bios:</h2>
-            <!-- Bios will be injected here by JS -->
+<body class="bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 min-h-screen text-white flex flex-col items-center justify-center p-4">
+    <div class="bg-white bg-opacity-20 backdrop-filter backdrop-blur-lg p-8 rounded-xl shadow-lg w-full max-w-md">
+        <h1 class="text-4xl font-bold text-center mb-6">BioGenie 🧞‍♀️</h1>
+        <p class="text-center mb-8">Craft the perfect Instagram bio with AI!</p>
+        <input type="text" id="keywordsInput" placeholder="e.g., photographer, travel, adventure" class="w-full p-3 mb-4 rounded-lg bg-white bg-opacity-30 border border-white border-opacity-50 text-white placeholder-gray-200 focus:outline-none focus:ring-2 focus:ring-white">
+        <button id="generateButton" class="w-full bg-white text-pink-600 font-bold py-3 px-4 rounded-lg hover:bg-pink-100 transition duration-300">
+            Generate My Bio
+        </button>
+        <div id="loading" class="text-center mt-4">
+            <p>Generating amazing bios...</p>
         </div>
+        <div id="biosOutput" class="mt-6 bg-white bg-opacity-20 p-4 rounded-lg" style="min-height: 100px;">
+            <p id="placeholderText" class="text-center text-gray-200">Your new bio will appear here!</p>
+        </div>
+        <button id="copyButton" class="w-full bg-green-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-600 transition duration-300 mt-4 hidden">
+            Copy Bio
+        </button>
+        <p class="text-center text-sm mt-6">Ready for unlimited bios? <a href="#" class="underline font-semibold">Upgrade Now</a></p>
     </div>
-
-    <script src="https://js.stripe.com/v3/"></script>
     <script>
-        document.getElementById('bio-form').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const keywords = document.getElementById('keywords').value;
-            const tone = document.getElementById('tone').value;
-            const resultsDiv = document.getElementById('results');
-            resultsDiv.innerHTML = '<h2 class="text-2xl font-bold text-gray-800">Your New Bios:</h2><p class="text-gray-500">Generating options...</p>';
-            resultsDiv.classList.remove('hidden');
+        const keywordsInput = document.getElementById('keywordsInput');
+        const generateButton = document.getElementById('generateButton');
+        const biosOutput = document.getElementById('biosOutput');
+        const loadingIndicator = document.getElementById('loading');
+        const placeholderText = document.getElementById('placeholderText');
+        const copyButton = document.getElementById('copyButton');
+
+        generateButton.addEventListener('click', async () => {
+            const keywords = keywordsInput.value.trim();
+            if (!keywords) {
+                alert('Please enter some keywords!');
+                return;
+            }
+            placeholderText.style.display = 'none';
+            biosOutput.innerHTML = '';
+            loadingIndicator.style.display = 'block';
+            copyButton.style.display = 'none';
 
             try {
-                // In a real app, this would trigger a payment and then fetch bios from your backend.
-                // For this example, we'll simulate it.
-                const response = await fetch('/api/generate-bios', { // Placeholder API endpoint
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ keywords, tone })
-                });
-                const data = await response.json();
-
-                if (data.bios) {
-                    resultsDiv.innerHTML = '<h2 class="text-2xl font-bold text-gray-800">Your New Bios:</h2>' +
-                                         data.bios.map(bio => `<p class="bg-gray-100 p-3 rounded">${bio}</p>`).join('');
-                } else if (data.error) {
-                    resultsDiv.innerHTML = `<h2 class="text-2xl font-bold text-gray-800">Error:</h2><p class="text-red-500">${data.error}</p>`;
-                } else {
-                    resultsDiv.innerHTML = `<h2 class="text-2xl font-bold text-gray-800">Error:</h2><p class="text-red-500">Failed to generate bios. Please try again.</p>`;
-                }
+                // In a real app, this would call an API endpoint (e.g., Vercel Edge Function)
+                // For demo, simulate API response
+                const simulatedBios = [
+                    `📸 Wanderlust-fueled photographer | Exploring the world, one frame at a time | Adventure awaits! ✨`,
+                    `📍 Travel enthusiast & storyteller | Capturing life's beautiful moments | Always seeking new horizons ✈️`,
+                    `Photographer by passion, adventurer by nature. Creating memories through my lens. Let's connect! 👇`
+                ];
+                
+                await new Promise(resolve => setTimeout(resolve, 2000)); // Simulate API delay
+                
+                const generatedBio = simulatedBios[Math.floor(Math.random() * simulatedBios.length)];
+                biosOutput.innerHTML = `<p class="text-white">${generatedBio}</p>`;
+                copyButton.dataset.bio = generatedBio;
+                copyButton.style.display = 'block';
 
             } catch (error) {
-                resultsDiv.innerHTML = `<h2 class="text-2xl font-bold text-gray-800">Error:</h2><p class="text-red-500">An unexpected error occurred: ${error.message}</p>`;
+                biosOutput.innerHTML = `<p class="text-red-300">Error generating bio. Please try again.</p>`;
+            } finally {
+                loadingIndicator.style.display = 'none';
             }
         });
 
-        // Simulate backend API for payment and bio generation in a real product
-        // A real implementation would involve Stripe and a server-side API call to OpenAI/similar AI.
-        // The above fetch('/api/generate-bios') call would first go to a Stripe checkout.
+        copyButton.addEventListener('click', () => {
+            const bioToCopy = copyButton.dataset.bio;
+            navigator.clipboard.writeText(bioToCopy).then(() => {
+                alert('Bio copied to clipboard!');
+            }).catch(err => {
+                console.error('Failed to copy text: ', err);
+            });
+        });
     </script>
 </body>
 </html>
