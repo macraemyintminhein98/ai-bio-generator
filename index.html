@@ -3,56 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BioBoost AI</title>
+    <title>AI Bio Generator</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <style>
         body { font-family: sans-serif; }
-        #loading { display: none; }
+        .container { max-width: 768px; margin: 0 auto; padding: 2rem; }
+        textarea { resize: vertical; min-height: 100px; }
     </style>
 </head>
-<body class="bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 min-h-screen flex items-center justify-center p-4">
-    <div class="bg-white p-8 rounded-lg shadow-xl w-full max-w-md">
-        <h1 class="text-3xl font-bold text-center mb-6 text-gray-800">BioBoost AI 🚀</h1>
-        <p class="text-center text-gray-600 mb-6">Craft your perfect Instagram bio instantly!</p>
-        <form id="bioForm" class="space-y-4">
-            <div>
-                <label for="niche" class="block text-sm font-medium text-gray-700">Niche/Keywords</label>
-                <input type="text" id="niche" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-purple-500 focus:border-purple-500" placeholder="e.g., travel, entrepreneur, fitness" required>
+<body class="bg-gray-100 text-gray-900">
+    <div class="container bg-white shadow-lg rounded-lg mt-10">
+        <h1 class="text-4xl font-bold text-center mb-6">Craft Your Perfect Bio</h1>
+        <p class="text-center text-gray-600 mb-8">Generate engaging Instagram bios with AI.</p>
+        <div class="mb-4">
+            <label for="keywords" class="block text-sm font-medium text-gray-700">Keywords (e.g., travel, foodie):</label>
+            <input type="text" id="keywords" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2">
+        </div>
+        <div class="mb-6">
+            <label for="tone" class="block text-sm font-medium text-gray-700">Tone:</label>
+            <select id="tone" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2">
+                <option>Professional</option>
+                <option>Funny</option>
+                <option>Aesthetic</option>
+                <option>Adventurous</option>
+                <option>Creative</option>
+            </select>
+        </div>
+        <button id="generateBtn" class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition">Generate Bio</button>
+        
+        <div id="results" class="mt-8 border-t pt-6 hidden">
+            <h2 class="text-2xl font-bold mb-4">Your Bio Options:</h2>
+            <div id="bioOutput" class="space-y-4">
+                <!-- Generated bios will appear here -->
             </div>
-            <div>
-                <label for="tone" class="block text-sm font-medium text-gray-700">Desired Tone</label>
-                <input type="text" id="tone" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-purple-500 focus:border-purple-500" placeholder="e.g., funny, professional, inspiring">
-            </div>
-            <button type="submit" class="w-full bg-purple-600 text-white py-2 px-4 rounded-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2">Generate Bios</button>
-        </form>
-        <div id="loading" class="text-center mt-4 text-purple-600">Generating amazing bios...</div>
-        <div id="results" class="mt-6 space-y-4"></div>
-        <p class="text-sm text-gray-500 text-center mt-8">Powered by AI. &copy; 2023 BioBoost AI.</p>
+        </div>
     </div>
     <script>
-        // Placeholder for future JavaScript functionality (e.g., API calls, displaying results).
-        // In a real Next.js app, this logic would be in a React component.
-        document.getElementById('bioForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            document.getElementById('loading').style.display = 'block';
-            document.getElementById('results').innerHTML = '';
-            // Simulate API call and results display
-            setTimeout(() => {
-                document.getElementById('loading').style.display = 'none';
-                const niche = document.getElementById('niche').value;
-                const tone = document.getElementById('tone').value;
-                const exampleBios = [
-                    `Wanderlust & good vibes ✈️ Creator. Living for the moments that take my breath away.`, 
-                    `Building the future, one byte at a time. Tech Enthusiast | Innovator. Let's connect!`, 
-                    `Your daily dose of motivation ✨ Fitness coach. Empowering you to be your best self.`, 
-                    `Coffee in one hand, confidence in the other. Just a human trying to be a rainbow in someone else's cloud.`
-                ];
-                let html = '<h2 class="text-xl font-semibold mb-4 text-gray-800">Your New Bios:</h2>';
-                exampleBios.forEach(bio => {
-                    html += `<div class="bg-purple-100 p-3 rounded-md text-purple-800 break-words"><p>${bio}</p><button class="mt-2 text-sm text-purple-600 hover:underline" onclick="navigator.clipboard.writeText('${bio.replace(/'/g, "\\'")}')">Copy</button></div>`;
+        document.getElementById('generateBtn').addEventListener('click', async () => {
+            const keywords = document.getElementById('keywords').value;
+            const tone = document.getElementById('tone').value;
+            const bioOutput = document.getElementById('bioOutput');
+            const resultsSection = document.getElementById('results');
+            
+            // Simulate API call and generation
+            bioOutput.innerHTML = '<p class="text-center text-gray-500">Generating...</p>';
+            resultsSection.classList.remove('hidden');
+
+            await new Promise(resolve => setTimeout(resolve, 1500)); // Simulate loading
+
+            const generatedBios = [
+                `Blogger. Creator. Living my best life. ${keywords}, with a ${tone} twist. ✨`,
+                `Exploring the world one byte at a time. Digital nomad with a ${tone} vibe and a passion for ${keywords}.`,
+                `Fueled by coffee and good intentions. Spreading ${tone} vibes and ${keywords} adventures. Let's connect! 🔥`
+            ];
+
+            bioOutput.innerHTML = generatedBios.map(bio => `
+                <div class="p-4 border rounded-md bg-gray-50 flex justify-between items-center">
+                    <p class="flex-grow">${bio}</p>
+                    <button class="ml-4 text-blue-500 hover:text-blue-700 copy-btn" data-bio="${bio}">Copy</button>
+                </div>
+            `).join('');
+
+            document.querySelectorAll('.copy-btn').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    navigator.clipboard.writeText(e.target.dataset.bio);
+                    alert('Bio copied!');
                 });
-                document.getElementById('results').innerHTML = html;
-            }, 2000);
+            });
         });
     </script>
 </body>
