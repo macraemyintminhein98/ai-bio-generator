@@ -3,54 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Bio Generator</title>
+    <title>BioBoost AI</title>
+    <meta name="description" content="Generate creative Instagram bios with AI.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap">
     <style>
-        body { font-family: sans-serif; margin: 20px; background-color: #f0f2f5; color: #333; }
-        .container { max-width: 600px; margin: 40px auto; padding: 25px; background: white; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); text-align: center; }
-        h1 { color: #5a5a5a; margin-bottom: 25px; }
-        label { display: block; margin-bottom: 10px; font-weight: bold; text-align: left; }
-        textarea { width: calc(100% - 20px); padding: 10px; margin-bottom: 20px; border: 1px solid #ddd; border-radius: 5px; min-height: 80px; resize: vertical; }
-        button { background-color: #007bff; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; transition: background-color 0.3s; }
-        button:hover { background-color: #0056b3; }
-        #result { margin-top: 25px; padding: 15px; background-color: #e9ecef; border-radius: 5px; min-height: 50px; text-align: left; white-space: pre-wrap; word-wrap: break-word; }
-        #copyBtn { margin-top: 15px; background-color: #28a745; }
-        #copyBtn:hover { background-color: #218838; }
+        body { font-family: 'Inter', sans-serif; }
+        .cta-btn { background-color: #6366f1; color: white; padding: 0.75rem 1.5rem; border-radius: 0.5rem; text-decoration: none; font-weight: 600; transition: background-color 0.3s; }
+        .cta-btn:hover { background-color: #4f46e5; }
     </style>
 </head>
-<body>
-    <div class="container">
-        <h1>Craft Your Perfect Instagram Bio</h1>
-        <label for="prompt">Tell us about yourself (e.g., profession, hobbies, vibe):</label>
-        <textarea id="prompt" placeholder="e.g., 'Software Engineer, loves hiking and coffee, chill vibes'" rows="4"></textarea>
-        <button onclick="generateBio()">Generate Bio</button>
-        <div id="result">Your AI-generated bio will appear here!</div>
-        <button id="copyBtn" onclick="copyBio()" style="display: none;">Copy Bio</button>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen p-4">
+    <div class="bg-white shadow-xl rounded-lg p-8 max-w-md w-full text-center">
+        <h1 class="text-4xl font-bold text-gray-900 mb-4">BioBoost AI</h1>
+        <p class="text-lg text-gray-700 mb-6">Craft the perfect Instagram bio, effortlessly.</p>
+        <p class="text-md text-gray-600 mb-8">Simply enter keywords and let our AI generate engaging bios that capture your essence.</p>
+        <form action="#" method="POST" class="space-y-4">
+            <input type="text" placeholder="Keywords (e.g., photographer, travel, foodie)" class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500" required>
+            <textarea placeholder="Optional: Tell us more about yourself" rows="3" class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"></textarea>
+            <button type="submit" class="cta-btn w-full">Generate My Bio!</button>
+        </form>
+        <p class="mt-8 text-sm text-gray-500">&copy; 2023 BioBoost AI. All rights reserved.</p>
     </div>
-
-    <script>
-        async function generateBio() {
-            const prompt = document.getElementById('prompt').value;
-            const resultDiv = document.getElementById('result');
-            const copyBtn = document.getElementById('copyBtn');
-            resultDiv.textContent = 'Generating...';
-            copyBtn.style.display = 'none';
-
-            // In a real application, this would call a backend API.
-            // For this example, we'll simulate a response.
-            // Replace with your actual LLM API call (e.g., fetch('/api/generate-bio', { method: 'POST', body: JSON.stringify({ prompt }) }))
-            const simulatedResponse = `✨ Building cool things & exploring new trails. Coffee in hand, adventure in heart. Let's connect! 🚀`;
-            
-            setTimeout(() => {
-                resultDiv.textContent = simulatedResponse;
-                copyBtn.style.display = 'block';
-            }, 1500); // Simulate API delay
-        }
-
-        function copyBio() {
-            const resultDiv = document.getElementById('result');
-            navigator.clipboard.writeText(resultDiv.textContent);
-            alert('Bio copied to clipboard!');
-        }
-    </script>
 </body>
 </html>
