@@ -1,1 +1,89 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>InstaBio AI</title><meta name="description" content="Generate creative Instagram bios with AI."><style>body{font-family:sans-serif;margin:0;padding:20px;background:#f9f9f9;color:#333;text-align:center}h1{color:#007bff}p{margin-bottom:20px}.card{background:#fff;border-radius:10px;box-shadow:0 4px 8px rgba(0,0,0,.1);padding:30px;max-width:600px;margin:20px auto}input,select,button{width:calc(100% - 20px);padding:12px;margin-bottom:15px;border:1px solid #ddd;border-radius:5px;font-size:16px}button{background:#007bff;color:#fff;border:none;cursor:pointer;transition:background .3s}.bio-output{background:#f0f7ff;border:1px dashed #a8d9ff;padding:20px;border-radius:5px;min-height:50px;text-align:left;white-space:pre-wrap;font-size:1.1em}.copy-btn{background:#28a745;margin-top:10px}.copy-btn:hover{background:#218838}.button:hover{background:#0056b3}</style></head><body><div class="card"><h1>InstaBio AI</h1><p>Craft your perfect Instagram bio instantly with AI.</p><input type="text" id="keywords" placeholder="Keywords (e.g., photographer, traveler, dog mom)"><select id="style"><option value="witty">Witty</option><option value="professional">Professional</option><option value="minimalist">Minimalist</option><option value="inspirational">Inspirational</option></select><button onclick="generateBio()">Generate Bio</button><div class="bio-output" id="bioOutput">Your AI-generated bio will appear here.</div><button class="copy-btn" onclick="copyBio()">Copy to Clipboard</button></div><script>async function generateBio(){const keywords=document.getElementById('keywords').value;const style=document.getElementById('style').value;const bioOutput=document.getElementById('bioOutput');bioOutput.textContent='Generating...';try{const response=await fetch('/api/generate-bio',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({keywords,style})});const data=await response.json();if(data.bio){bioOutput.textContent=data.bio;}else{bioOutput.textContent='Error generating bio: '+data.error;}}catch(error){bioOutput.textContent='Network error: '+error.message;}}function copyBio(){const bioText=document.getElementById('bioOutput').textContent;navigator.clipboard.writeText(bioText).then(()=>{alert('Bio copied to clipboard!');}).catch(err=>{console.error('Failed to copy: ',err);});}</script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BioGenie AI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Poppins', sans-serif; margin: 0; padding: 20px; background-color: #f7f9fc; color: #333; display: flex; flex-direction: column; align-items: center; min-height: 100vh; }
+        .container { background-color: #fff; padding: 30px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); max-width: 600px; width: 100%; text-align: center; }
+        h1 { color: #5a189a; margin-bottom: 25px; font-size: 2.2em; }
+        p { margin-bottom: 25px; line-height: 1.6; color: #555; }
+        textarea { width: calc(100% - 20px); padding: 12px; margin-bottom: 20px; border: 1px solid #ddd; border-radius: 8px; font-size: 1em; resize: vertical; min-height: 80px; }
+        button { background-color: #7b2cbf; color: white; padding: 12px 25px; border: none; border-radius: 8px; cursor: pointer; font-size: 1.1em; transition: background-color 0.3s ease; margin: 5px; }
+        button:hover { background-color: #5a189a; }
+        .bio-output { margin-top: 30px; text-align: left; }
+        .bio-item { background-color: #f0e6f9; padding: 15px; border-radius: 8px; margin-bottom: 15px; border: 1px solid #d4b4e7; position: relative; }
+        .copy-btn { position: absolute; top: 10px; right: 10px; padding: 8px 12px; font-size: 0.9em; background-color: #a77cda; }
+        .copy-btn:hover { background-color: #8c5cd6; }
+        footer { margin-top: 40px; font-size: 0.9em; color: #888; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>BioGenie AI ✨</h1>
+        <p>Craft your perfect Instagram bio instantly!</p>
+        <textarea id="keywordsInput" placeholder="e.g., photographer, travel, foodie, dog lover, entrepreneur..."></textarea>
+        <button onclick="generateBios()">Generate Bios</button>
+        <div id="bioOutput" class="bio-output"></div>
+    </div>
+    <footer>
+        &copy; 2023 BioGenie AI. All rights reserved.
+    </footer>
+
+    <script>
+        async function generateBios() {
+            const keywords = document.getElementById('keywordsInput').value;
+            const bioOutputDiv = document.getElementById('bioOutput');
+            bioOutputDiv.innerHTML = '<p>Generating amazing bios for you...</p>';
+
+            // In a real app, you'd send 'keywords' to a backend AI API.
+            // For this example, we'll simulate some results.
+            try {
+                // Placeholder for actual API call
+                // const response = await fetch('/api/generate-bio', { 
+                //     method: 'POST', body: JSON.stringify({ keywords }), headers: { 'Content-Type': 'application/json' }
+                // });
+                // const data = await response.json();
+                // const bios = data.bios;
+
+                // ⭐ Simulated AI results ⭐
+                const simulatedBios = [
+                    `📸 Photographer | ✈️ Wanderlust | Chasing light & moments worldwide. Let's create! ✨`,
+                    `Foodie by heart ❤️ | Exploring global flavors. Join me on my culinary adventures! 🍜🥂`,
+                    `Dog mom to Max 🐾 | Coffee enthusiast ☕ | Living life one adventure at a time. Spread kindness! 😊`,
+                    `Building dreams, one line of code at a time 💻 | Entrepreneur | Inspiring innovation. Connect & grow! 🌱`
+                ];
+
+                bioOutputDiv.innerHTML = '';
+                simulatedBios.forEach(bio => {
+                    const bioItem = document.createElement('div');
+                    bioItem.className = 'bio-item';
+                    bioItem.innerHTML = `<p>${bio}</p><button class="copy-btn" onclick="copyToClipboard(this, '${bio}')">Copy</button>`;
+                    bioOutputDiv.appendChild(bioItem);
+                });
+
+            } catch (error) {
+                console.error('Error generating bios:', error);
+                bioOutputDiv.innerHTML = '<p style="color: red;">Oops! Something went wrong. Please try again later.</p>';
+            }
+        }
+
+        function copyToClipboard(button, text) {
+            navigator.clipboard.writeText(text).then(() => {
+                button.textContent = 'Copied!';
+                button.style.backgroundColor = '#4CAF50';
+                setTimeout(() => {
+                    button.textContent = 'Copy';
+                    button.style.backgroundColor = '#a77cda';
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy text: ', err);
+            });
+        }
+    </script>
+</body>
+</html>
