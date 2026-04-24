@@ -1,3 +1,3 @@
-# BioBoost AI
+# AI Bio Generator
 
-Instantly generate catchy and creative Instagram bios powered by AI. Just tell us your niche and desired tone, and get multiple unique options to enhance your online presence. Perfect for influencers, businesses, and anyone looking to stand out!
+Generate creative Instagram bios using AI! Input your keywords and desired tone, and get unique bio options. Perfect for influencers, small businesses, and social media enthusiasts looking to enhance their online presence. Simple, fast, and effective.
