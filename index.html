@@ -1,1 +1,56 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>AI Bio Generator</title><meta name="description" content="Generate unique Instagram bios with AI."><link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"><style>body{font-family:sans-serif;}h1,h2{font-weight:bold;}#loading{display:none;}</style></head><body class="bg-gray-100 flex items-center justify-center min-h-screen"><div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md"><h1 class="text-3xl mb-4 text-center">AI Bio Generator</h1><p class="text-center mb-6 text-gray-600">Craft your perfect Instagram bio instantly!</p><div id="paymentSection"><button id="buyButton" class="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Buy Now - $9.99</button><p class="text-sm text-gray-500 text-center mt-2">Secure payment via Stripe Checkout.</p></div><div id="appSection" style="display:none;"><div class="mb-4"><label for="keywords" class="block text-sm font-medium text-gray-700">Keywords (e.g., travel, food, tech):</label><input type="text" id="keywords" class="mt-1 p-2 w-full border rounded-md"></div><div class="mb-4"><label for="tone" class="block text-sm font-medium text-gray-700">Tone (e.g., funny, professional, quirky):</label><input type="text" id="tone" class="mt-1 p-2 w-full border rounded-md"></div><div class="mb-4"><label for="emoji" class="block text-sm font-medium text-gray-700">Emoji Preference (e.g., yes, no, specific emojis):</label><input type="text" id="emoji" class="mt-1 p-2 w-full border rounded-md"></div><button id="generateBio" class="w-full bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600">Generate Bio</button><div id="loading" class="text-center mt-4 text-gray-500">Generating...</div><div id="result" class="mt-6 p-4 bg-gray-50 border rounded-md text-gray-800 break-words" style="min-height: 80px;"></div><button id="copyBio" class="mt-4 w-full bg-gray-200 text-gray-800 py-2 px-4 rounded hover:bg-gray-300" style="display:none;">Copy Bio</button></div></div><script>document.getElementById('buyButton').addEventListener('click', async () => {/* Simulating Stripe Checkout for initial build */alert('Proceeding to payment (simulated). On successful payment, generation features will unlock.');document.getElementById('paymentSection').style.display = 'none';document.getElementById('appSection').style.display = 'block';});document.getElementById('generateBio').addEventListener('click', async () => {document.getElementById('loading').style.display = 'block';document.getElementById('result').textContent = '';document.getElementById('copyBio').style.display = 'none';const keywords = document.getElementById('keywords').value;const tone = document.getElementById('tone').value;const emoji = document.getElementById('emoji').value;const prompt = `Generate a creative Instagram bio based on these keywords: ${keywords}, tone: ${tone}, emoji preference: ${emoji}. Max 160 characters.`;/* Placeholder for LLM API call */setTimeout(() => {const generatedBio = `AI-powered bio for: ${keywords}. Tone: ${tone}. Likes: ${emoji}. ✨✍️ #InstaBio`;document.getElementById('result').textContent = generatedBio;document.getElementById('loading').style.display = 'none';document.getElementById('copyBio').style.display = 'block';}, 2000);});document.getElementById('copyBio').addEventListener('click', () => {const bioText = document.getElementById('result').textContent;navigator.clipboard.writeText(bioText).then(() => alert('Bio copied to clipboard!'));});</script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Bio Generator</title>
+    <style>
+        body { font-family: sans-serif; margin: 20px; background-color: #f0f2f5; color: #333; }
+        .container { max-width: 600px; margin: 40px auto; padding: 25px; background: white; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); text-align: center; }
+        h1 { color: #5a5a5a; margin-bottom: 25px; }
+        label { display: block; margin-bottom: 10px; font-weight: bold; text-align: left; }
+        textarea { width: calc(100% - 20px); padding: 10px; margin-bottom: 20px; border: 1px solid #ddd; border-radius: 5px; min-height: 80px; resize: vertical; }
+        button { background-color: #007bff; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; transition: background-color 0.3s; }
+        button:hover { background-color: #0056b3; }
+        #result { margin-top: 25px; padding: 15px; background-color: #e9ecef; border-radius: 5px; min-height: 50px; text-align: left; white-space: pre-wrap; word-wrap: break-word; }
+        #copyBtn { margin-top: 15px; background-color: #28a745; }
+        #copyBtn:hover { background-color: #218838; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Craft Your Perfect Instagram Bio</h1>
+        <label for="prompt">Tell us about yourself (e.g., profession, hobbies, vibe):</label>
+        <textarea id="prompt" placeholder="e.g., 'Software Engineer, loves hiking and coffee, chill vibes'" rows="4"></textarea>
+        <button onclick="generateBio()">Generate Bio</button>
+        <div id="result">Your AI-generated bio will appear here!</div>
+        <button id="copyBtn" onclick="copyBio()" style="display: none;">Copy Bio</button>
+    </div>
+
+    <script>
+        async function generateBio() {
+            const prompt = document.getElementById('prompt').value;
+            const resultDiv = document.getElementById('result');
+            const copyBtn = document.getElementById('copyBtn');
+            resultDiv.textContent = 'Generating...';
+            copyBtn.style.display = 'none';
+
+            // In a real application, this would call a backend API.
+            // For this example, we'll simulate a response.
+            // Replace with your actual LLM API call (e.g., fetch('/api/generate-bio', { method: 'POST', body: JSON.stringify({ prompt }) }))
+            const simulatedResponse = `✨ Building cool things & exploring new trails. Coffee in hand, adventure in heart. Let's connect! 🚀`;
+            
+            setTimeout(() => {
+                resultDiv.textContent = simulatedResponse;
+                copyBtn.style.display = 'block';
+            }, 1500); // Simulate API delay
+        }
+
+        function copyBio() {
+            const resultDiv = document.getElementById('result');
+            navigator.clipboard.writeText(resultDiv.textContent);
+            alert('Bio copied to clipboard!');
+        }
+    </script>
+</body>
+</html>
