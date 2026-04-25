@@ -1,1 +1,77 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>InstaBio AI</title><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css"><style>body{padding:20px}main{max-width:600px;margin:auto}.output{margin-top:20px;padding:15px;background-color:#f8f9fa;border-radius:5px;border:1px solid #e9ecef}footer{margin-top:40px;text-align:center}</style></head><body><main class="container"><h1>InstaBio AI</h1><p>Craft the perfect Instagram bio with AI – instantly!</p><form id="bioForm"><label for="interests">Interests/Keywords (comma-separated):</label><input type="text" id="interests" name="interests" placeholder="e.g., travel, photography, entrepreneurship" required><label for="tone">Desired Tone:</label><select id="tone" name="tone"><option value="creative">Creative</option><option value="professional">Professional</option><option value="funny">Funny</option><option value="inspirational">Inspirational</option></select><label for="emoji">Include Emojis?</label><input type="checkbox" id="emoji" name="emoji" role="switch"><button type="submit" id="generateBtn">Generate Bio</button></form><article class="output" id="output"><p>Your AI-generated bio will appear here.</p></article><footer><p><a href="#">How It Works</a> | <a href="#">Pricing</a></p></footer></main><script>document.getElementById('bioForm').addEventListener('submit',async(e)=>{e.preventDefault();const generateBtn=document.getElementById('generateBtn');generateBtn.setAttribute('aria-busy','true');generateBtn.textContent='Generating...';const interests=document.getElementById('interests').value;const tone=document.getElementById('tone').value;const emoji=document.getElementById('emoji').checked;'use strict';console.log('Generating bio with:',interests,tone,emoji);const mockBio="✨ Dreamer | Creator | Explorer 📍 Globe-trotter. Lover of coffee & sunsets. Sharing my journey, one post at a time. Let's connect! 👇";document.getElementById('output').innerHTML=`<p>${mockBio}</p>`;generateBtn.removeAttribute('aria-busy');generateBtn.textContent='Generate Bio'});</script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BioBoost AI - Instagram Bio Generator</title>
+    <meta name="description" content="Generate creative Instagram bios instantly with AI.">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Poppins', sans-serif; }
+    </style>
+</head>
+<body class="bg-gradient-to-r from-purple-600 to-indigo-700 min-h-screen flex items-center justify-center p-4">
+    <div class="bg-white rounded-lg shadow-xl p-8 max-w-lg w-full text-center">
+        <h1 class="text-4xl font-bold text-gray-800 mb-4">BioBoost AI</h1>
+        <p class="text-lg text-gray-600 mb-6">Craft your perfect Instagram bio with artificial intelligence.</p>
+        <form id="bioForm" class="space-y-4">
+            <textarea id="keywords" rows="3" class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="Enter keywords about yourself or your brand (e.g., travel, entrepreneur, fitness, artist)" required></textarea>
+            <button type="submit" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-4 rounded-md transition duration-300">Generate Bio</button>
+        </form>
+        <div id="results" class="mt-8 space-y-4 text-left hidden">
+            <h2 class="text-2xl font-semibold text-gray-800">Your AI-Generated Bios:</h2>
+            <div id="bioOutput" class="space-y-3"></div>
+            <button id="regenerate" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-md transition duration-300 mt-4">Regenerate</button>
+        </div>
+        <p class="mt-8 text-gray-500 text-sm">Powered by AI. &copy; 2023 BioBoost AI.</p>
+    </div>
+    <script>
+      // Placeholder for frontend logic
+      // In a real app, this would make an API call to a backend that uses OpenAI/GPT-3.5-turbo
+      document.getElementById('bioForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const keywords = document.getElementById('keywords').value;
+        document.getElementById('results').classList.remove('hidden');
+        document.getElementById('bioOutput').innerHTML = '<p class="text-gray-700">Generating options...</p>';
+        
+        // Simulate API call and response
+        const simulatedBios = [
+          `✨ ${keywords.split(',')[0].trim()} | Dreamer | Creator | Explorer. Turning ideas into reality. Let's connect!`, 
+          `🚀 Hustle. Grow. Inspire. Passionate about ${keywords.split(',').pop().trim()}. Follow my journey!`, 
+          `🎨 Living life in full color. ${keywords.split(',')[1] ? keywords.split(',')[1].trim() : 'Artist'} always creating. DMs open for collabs!`
+        ];
+        
+        setTimeout(() => {
+            document.getElementById('bioOutput').innerHTML = simulatedBios.map(bio => `
+                <div class="p-3 bg-gray-100 rounded-md border border-gray-200 flex flex-col items-start">
+                    <textarea class="w-full h-auto bg-transparent border-none focus:outline-none resize-none" readonly>${bio}</textarea>
+                    <button class="mt-2 text-sm bg-green-500 hover:bg-green-600 text-white py-1 px-3 rounded-md self-end copy-btn" data-bio="${bio}">Copy</button>
+                </div>
+            `).join('');
+            attachCopyListeners();
+        }, 1500);
+      });
+
+      document.getElementById('regenerate').addEventListener('click', () => {
+          document.getElementById('bioForm').dispatchEvent(new Event('submit'));
+      });
+
+      function attachCopyListeners() {
+          document.querySelectorAll('.copy-btn').forEach(button => {
+              button.addEventListener('click', () => {
+                  const bioToCopy = button.getAttribute('data-bio');
+                  navigator.clipboard.writeText(bioToCopy).then(() => {
+                      button.textContent = 'Copied!';
+                      setTimeout(() => button.textContent = 'Copy', 2000);
+                  }).catch(err => {
+                      console.error('Failed to copy text: ', err);
+                  });
+              });
+          });
+      }
+    </script>
+</body>
+</html>
