@@ -3,69 +3,87 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Bio Generator</title>
+    <title>BioGenie</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <style>
-        body { font-family: sans-serif; }
-        .container { max-width: 600px; margin: 50px auto; padding: 20px; box-shadow: 0 0 10px rgba(0,0,0,0.1); border-radius: 8px; }
-        h1 { text-align: center; margin-bottom: 30px; }
-        label { display: block; margin-bottom: 8px; font-weight: bold; }
-        input[type="text"], select, textarea { width: 100%; padding: 10px; margin-bottom: 20px; border: 1px solid #ccc; border-radius: 4px; }
-        button { background-color: #4F46E5; color: white; padding: 12px 20px; border: none; border-radius: 4px; cursor: pointer; width: 100%; font-size: 16px; }
-        button:hover { background-color: #4338CA; }
-        #output { background-color: #f9f9f9; padding: 15px; border-radius: 4px; border: 1px dashed #ddd; min-height: 80px; word-wrap: break-word; }
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+        body { font-family: 'Poppins', sans-serif; }
     </style>
 </head>
-<body class="bg-gray-100">
-    <div class="container bg-white">
-        <h1>⚡ AI Bio Generator</h1>
-        <p class="mb-6 text-center text-gray-600">Craft the perfect Instagram bio with AI ✨</p>
-        <form id="bioForm">
-            <label for="keywords">Keywords (e.g., travel, foodie, artist):</label>
-            <input type="text" id="keywords" placeholder="Enter comma-separated keywords" required>
+<body class="bg-gradient-to-br from-purple-600 to-indigo-800 min-h-screen flex items-center justify-center p-4">
+    <div class="bg-white rounded-xl shadow-2xl p-8 max-w-lg w-full transform transition-all duration-300 hover:scale-105">
+        <h1 class="text-4xl font-bold text-center text-gray-900 mb-6">BioGenie ✨</h1>
+        <p class="text-center text-gray-600 mb-8">Craft your perfect Instagram bio, instantly!</p>
 
-            <label for="tone">Tone:</label>
-            <select id="tone">
-                <option value="professional">Professional</option>
-                <option value="funny">Funny</option>
-                <option value="aesthetic">Aesthetic</option>
-                <option value="inspirational">Inspirational</option>
-                <option value="casual">Casual</option>
-            </select>
-
-            <label for="length">Desired Length:</label>
-            <select id="length">
-                <option value="short">Short</option>
-                <option value="medium">Medium</option>
-                <option value="long">Long</option>
-            </select>
-
-            <button type="submit">Generate Bio</button>
-        </form>
-
-        <div class="mt-8">
-            <label>Your AI-Generated Bio:</label>
-            <div id="output">Your new bio will appear here.</div>
+        <div id="payment-section">
+            <p class="text-center text-lg text-gray-800 mb-4">Unlock unlimited bios for just $<span id="price-display">4.99</span>!</p>
+            <form id="checkout-form">
+                <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg transition duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+                    Buy BioGenie
+                </button>
+            </form>
         </div>
 
-        <p class="text-center mt-6 text-gray-500 text-sm">Powered by APEX</p>
+        <div id="generator-section" class="hidden">
+            <input type="text" id="keywords" placeholder="e.g. photographer, traveler, foodie" class="w-full p-3 border border-gray-300 rounded-lg mb-4 focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+            <button id="generateBtn" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-lg transition duration-200 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50 mb-6">
+                Generate Bios
+            </button>
+            <div id="output" class="bg-gray-100 p-4 rounded-lg min-h-[150px] relative">
+                <p id="placeholder" class="text-gray-500 italic text-center">Your amazing bios will appear here!</p>
+            </div>
+        </div>
     </div>
+
+    <script src="https://js.stripe.com/v3/"></script>
     <script>
-        document.getElementById('bioForm').addEventListener('submit', async (e) => {
+        const price = 4.99;
+        document.getElementById('price-display').innerText = price.toFixed(2);
+
+        const stripe = Stripe('YOUR_STRIPE_PUBLIC_KEY'); // Replace with your actual public key
+
+        document.getElementById('checkout-form').addEventListener('submit', async (e) => {
             e.preventDefault();
+            const response = await fetch('/api/checkout-session', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ price: price * 100 })
+            });
+            const session = await response.json();
+            if (session.id) {
+                stripe.redirectToCheckout({ sessionId: session.id });
+            }
+        });
+
+        // Simulate successful payment for demonstration
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('payment_status') === 'success') {
+            document.getElementById('payment-section').classList.add('hidden');
+            document.getElementById('generator-section').classList.remove('hidden');
+        }
+
+        document.getElementById('generateBtn').addEventListener('click', async () => {
             const keywords = document.getElementById('keywords').value;
-            const tone = document.getElementById('tone').value;
-            const length = document.getElementById('length').value;
             const outputDiv = document.getElementById('output');
-            outputDiv.textContent = 'Generating...';
+            const placeholder = document.getElementById('placeholder');
+            outputDiv.innerHTML = '<p class="text-center text-gray-500">Generating...</p>';
 
             try {
-                // In a real application, this would be an API call to your backend/OpenAI
-                const mockResponse = `AI-generated bio for keywords: ${keywords}, tone: ${tone}, length: ${length}. Get ready for likes!`;
-                outputDiv.textContent = mockResponse;
+                const response = await fetch('/api/generate-bio', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ keywords })
+                });
+                const data = await response.json();
+                if (data.bios) {
+                    outputDiv.innerHTML = data.bios.map(bio => `<p class="mb-2 p-2 bg-white rounded-md shadow-sm">${bio}</p>`).join('');
+                } else if (data.error) {
+                    outputDiv.innerHTML = `<p class="text-red-500 italic text-center">Error: ${data.error}</p>`;
+                } else {
+                    outputDiv.innerHTML = `<p class="text-gray-500 italic text-center">No bios generated. Try again!</p>`;
+                }
             } catch (error) {
-                outputDiv.textContent = 'Error generating bio. Please try again.';
-                console.error('Error:', error);
+                outputDiv.innerHTML = `<p class="text-red-500 italic text-center">Network error. Please try again.</p>`;
             }
         });
     </script>
