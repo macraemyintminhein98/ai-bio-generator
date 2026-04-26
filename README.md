@@ -1,11 +1,12 @@
-# BioBloom AI
+# BioBoost AI
 
-Unlock your perfect Instagram bio with AI! Simply enter some keywords about yourself or your brand, and our smart generator will craft several catchy and unique bio options for you. Copy and paste your favorite with a single click. 
+Generate creative and engaging Instagram bios using AI, tailored to your keywords and preferred tone. Simply input your keywords and select a tone, and let BioBoost AI craft several unique bios for you to choose from. Copy your favorite bio with a single click!
 
-## Features
-- **AI-Powered Generation**: Get unique Instagram bio suggestions.
-- **Keyword-Driven**: Tailor bios with your specific interests.
-- **Multiple Variations**: Choose from several creative options.
-- **Copy to Clipboard**: Easily transfer your favorite bio.
+**Features:**
+*   AI-powered bio generation
+*   Customizable tone (funny, professional, inspiring, etc.)
+*   Easy keyword input
+*   Multiple bio options
+*   One-click copy to clipboard
 
-Craft your online presence effortlessly with BioBloom AI!
+Perfect for influencers, small businesses, or anyone needing a fresh Instagram presence.
