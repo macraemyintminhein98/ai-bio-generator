@@ -3,75 +3,85 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BioBoost AI - Instagram Bio Generator</title>
-    <meta name="description" content="Generate creative Instagram bios instantly with AI.">
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <title>BioBoost AI</title>
     <style>
-        body { font-family: 'Poppins', sans-serif; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 20px; background-color: #f4f7f6; color: #333; display: flex; flex-direction: column; align-items: center; min-height: 100vh; }
+        .container { background: #fff; padding: 30px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); max-width: 600px; width: 100%; text-align: center; }
+        h1 { color: #1a73e8; margin-bottom: 20px; font-size: 2.2em; }
+        p { line-height: 1.6; margin-bottom: 25px; color: #555; }
+        .input-group label { display: block; text-align: left; margin-bottom: 8px; font-weight: bold; color: #444; }
+        .input-group input, .input-group select { width: calc(100% - 20px); padding: 12px; margin-bottom: 20px; border: 1px solid #ddd; border-radius: 8px; font-size: 1em; }
+        .input-group input:focus, .input-group select:focus { border-color: #1a73e8; outline: none; box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.2); }
+        button { background-color: #1a73e8; color: white; padding: 14px 25px; border: none; border-radius: 8px; cursor: pointer; font-size: 1.1em; transition: background-color 0.3s ease, transform 0.2s ease; margin-top: 10px; }
+        button:hover { background-color: #155bb5; transform: translateY(-2px); }
+        .results { margin-top: 30px; text-align: left; border-top: 1px solid #eee; padding-top: 20px; }
+        .bio-card { background: #f9f9f9; border: 1px solid #e0e0e0; border-left: 5px solid #1a73e8; padding: 15px; margin-bottom: 15px; border-radius: 8px; position: relative; }
+        .copy-btn { position: absolute; top: 10px; right: 10px; background: #e8f0fe; color: #1a73e8; border: none; padding: 8px 12px; border-radius: 6px; cursor: pointer; font-size: 0.85em; }
+        .copy-btn:hover { background: #d7e3f7; }
+        .loading { display: none; margin-top: 20px; font-style: italic; color: #777; }
     </style>
 </head>
-<body class="bg-gradient-to-r from-purple-600 to-indigo-700 min-h-screen flex items-center justify-center p-4">
-    <div class="bg-white rounded-lg shadow-xl p-8 max-w-lg w-full text-center">
-        <h1 class="text-4xl font-bold text-gray-800 mb-4">BioBoost AI</h1>
-        <p class="text-lg text-gray-600 mb-6">Craft your perfect Instagram bio with artificial intelligence.</p>
-        <form id="bioForm" class="space-y-4">
-            <textarea id="keywords" rows="3" class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="Enter keywords about yourself or your brand (e.g., travel, entrepreneur, fitness, artist)" required></textarea>
-            <button type="submit" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-4 rounded-md transition duration-300">Generate Bio</button>
-        </form>
-        <div id="results" class="mt-8 space-y-4 text-left hidden">
-            <h2 class="text-2xl font-semibold text-gray-800">Your AI-Generated Bios:</h2>
-            <div id="bioOutput" class="space-y-3"></div>
-            <button id="regenerate" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-md transition duration-300 mt-4">Regenerate</button>
+<body>
+    <div class="container">
+        <h1>BioBoost AI</h1>
+        <p>Craft the perfect Instagram bio with AI. Just tell us what you're about and pick a vibe!</p>
+        <div class="input-group">
+            <label for="keywords">Keywords (e.g., travel, entrepreneur, fitness):</label>
+            <input type="text" id="keywords" placeholder="adventure, foodie, photographer">
         </div>
-        <p class="mt-8 text-gray-500 text-sm">Powered by AI. &copy; 2023 BioBoost AI.</p>
+        <div class="input-group">
+            <label for="tone">Tone:</label>
+            <select id="tone">
+                <option value="professional">Professional</option>
+                <option value="funny">Funny</option>
+                <option value="inspiring">Inspiring</option>
+                <option value="casual">Casual</option>
+                <option value="sarcastic">Sarcastic</option>
+            </select>
+        </div>
+        <button onclick="generateBio()">Generate My Bio!</button>
+        <p class="loading" id="loading">Generating amazing bios...</p>
+        <div class="results" id="results"></div>
     </div>
     <script>
-      // Placeholder for frontend logic
-      // In a real app, this would make an API call to a backend that uses OpenAI/GPT-3.5-turbo
-      document.getElementById('bioForm').addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const keywords = document.getElementById('keywords').value;
-        document.getElementById('results').classList.remove('hidden');
-        document.getElementById('bioOutput').innerHTML = '<p class="text-gray-700">Generating options...</p>';
-        
-        // Simulate API call and response
-        const simulatedBios = [
-          `✨ ${keywords.split(',')[0].trim()} | Dreamer | Creator | Explorer. Turning ideas into reality. Let's connect!`, 
-          `🚀 Hustle. Grow. Inspire. Passionate about ${keywords.split(',').pop().trim()}. Follow my journey!`, 
-          `🎨 Living life in full color. ${keywords.split(',')[1] ? keywords.split(',')[1].trim() : 'Artist'} always creating. DMs open for collabs!`
-        ];
-        
-        setTimeout(() => {
-            document.getElementById('bioOutput').innerHTML = simulatedBios.map(bio => `
-                <div class="p-3 bg-gray-100 rounded-md border border-gray-200 flex flex-col items-start">
-                    <textarea class="w-full h-auto bg-transparent border-none focus:outline-none resize-none" readonly>${bio}</textarea>
-                    <button class="mt-2 text-sm bg-green-500 hover:bg-green-600 text-white py-1 px-3 rounded-md self-end copy-btn" data-bio="${bio}">Copy</button>
-                </div>
-            `).join('');
-            attachCopyListeners();
-        }, 1500);
-      });
+        async function generateBio() {
+            const keywords = document.getElementById('keywords').value;
+            const tone = document.getElementById('tone').value;
+            const resultsDiv = document.getElementById('results');
+            const loadingDiv = document.getElementById('loading');
+            resultsDiv.innerHTML = '';
+            loadingDiv.style.display = 'block';
 
-      document.getElementById('regenerate').addEventListener('click', () => {
-          document.getElementById('bioForm').dispatchEvent(new Event('submit'));
-      });
+            // In a real app, this would call your Vercel serverless function
+            // For this static HTML, we'll simulate an AI response
+            const simulatedBios = [
+                `Wanderer ✈️ | Food lover 🍕 | Capturing moments one click at a time. Tone: ${tone}. Keywords: ${keywords}.`,
+                `Turning coffee into code & dreams into plans. Let's connect! Tone: ${tone}. Keywords: ${keywords}.`,
+                `Spreading good vibes & bad puns. Here for a good time, not a long time. Tone: ${tone}. Keywords: ${keywords}.`
+            ];
 
-      function attachCopyListeners() {
-          document.querySelectorAll('.copy-btn').forEach(button => {
-              button.addEventListener('click', () => {
-                  const bioToCopy = button.getAttribute('data-bio');
-                  navigator.clipboard.writeText(bioToCopy).then(() => {
-                      button.textContent = 'Copied!';
-                      setTimeout(() => button.textContent = 'Copy', 2000);
-                  }).catch(err => {
-                      console.error('Failed to copy text: ', err);
-                  });
-              });
-          });
-      }
+            setTimeout(() => {
+                loadingDiv.style.display = 'none';
+                simulatedBios.forEach(bio => {
+                    const bioCard = document.createElement('div');
+                    bioCard.className = 'bio-card';
+                    bioCard.innerHTML = `<p>${bio}</p><button class="copy-btn" onclick="copyBio(this)">Copy</button>`;
+                    resultsDiv.appendChild(bioCard);
+                });
+            }, 2000); // Simulate network delay
+        }
+
+        function copyBio(button) {
+            const bioText = button.previousElementSibling.innerText;
+            navigator.clipboard.writeText(bioText).then(() => {
+                const originalText = button.innerText;
+                button.innerText = 'Copied!';
+                setTimeout(() => button.innerText = originalText, 1500);
+            }).catch(err => {
+                console.error('Failed to copy text: ', err);
+                alert('Failed to copy. Please try manually.');
+            });
+        }
     </script>
 </body>
 </html>
