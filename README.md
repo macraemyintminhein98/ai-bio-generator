@@ -1,10 +1,11 @@
-# AI Bio Generator
+# BioGenie
 
-Craft compelling Instagram bios effortlessly with our AI-powered tool. Just provide keywords and a desired tone, and let AI do the rest!
+BioGenie is an AI-powered tool that generates creative and engaging Instagram bios based on your keywords. Simply enter your interests, and BioGenie will craft multiple unique options for you to use!
 
 **Features:**
-- AI-driven bio generation
-- Customizable tone (funny, professional, aesthetic, etc.)
-- Quick and easy to use
+- Instant Bio Generation
+- Multiple Creative Variations
+- Emoji Integration
+- One-time purchase for unlimited usage
 
-This project provides a simple frontend. The AI generation logic would typically be handled by a backend interacting with OpenAI's API.
+Get your perfect Instagram bio today!
