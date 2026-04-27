@@ -3,55 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BioBoost AI</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <style>
-        body { font-family: 'Inter', sans-serif; }
-    </style>
+    <title>BioGenAI - AI Instagram Bio Generator</title>
+    <meta name="description" content="Generate creative and engaging Instagram bios instantly with AI.">
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body class="bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 min-h-screen flex items-center justify-center p-4">
-    <div class="bg-white rounded-xl shadow-2xl p-8 max-w-md w-full text-center">
-        <h1 class="text-4xl font-extrabold mb-4 text-gray-800">BioBoost AI</h1>
-        <p class="text-lg mb-6 text-gray-600">Craft your perfect Instagram bio instantly!</p>
-        <form id="bioForm">
-            <input type="text" id="keywords" placeholder="Keywords (e.g., dog owner, traveler)" class="w-full p-3 mb-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500" required>
-            <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-4 rounded-lg transition duration-300 ease-in-out">
-                Generate Bio <span class="ml-2 text-sm">✨</span>
-            </button>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+    <div class="bg-white p-8 rounded-lg shadow-md max-w-md w-full text-center">
+        <h1 class="text-3xl font-bold mb-4">BioGenAI</h1>
+        <p class="text-gray-600 mb-6">Craft your perfect Instagram bio with AI!</p>
+        <form id="bioForm" class="space-y-4">
+            <div>
+                <input type="text" id="keywords" placeholder="Keywords (e.g., travel, food, tech)" class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+            <div>
+                <select id="tone" class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <option value="funny">Funny</option>
+                    <option value="professional">Professional</option>
+                    <option value="inspiring">Inspiring</option>
+                    <option value="creative">Creative</option>
+                </select>
+            </div>
+            <button type="submit" class="w-full bg-blue-600 text-white p-3 rounded-md hover:bg-blue-700 transition duration-200">Generate Bio</button>
         </form>
-        <div id="results" class="mt-6 p-4 bg-gray-100 rounded-lg text-left hidden">
-            <p class="text-gray-700 font-semibold mb-2">Your AI Bio Ideas:</p>
-            <ul id="bioList" class="list-disc list-inside text-gray-800"></ul>
+        <div id="result" class="mt-6 p-4 bg-gray-50 border border-gray-200 rounded-md text-left hidden">
+            <h2 class="font-semibold mb-2">Your AI-Generated Bio:</h2>
+            <p id="bioText" class="whitespace-pre-wrap text-gray-800"></p>
+            <button id="copyBtn" class="mt-4 bg-green-500 text-white p-2 rounded-md hover:bg-green-600 transition duration-200 text-sm">Copy Bio</button>
         </div>
-        <p class="text-sm text-gray-500 mt-6">Powered by advanced AI. <br> <span class="font-semibold">$4.99</span> for unlimited generations.</p>
+        <p class="mt-8 text-sm text-gray-500">Powered by APEX AI. Only $4.99 per pack!</p>
     </div>
-
     <script>
-        document.getElementById('bioForm').addEventListener('submit', async (e) => {
+        const form = document.getElementById('bioForm');
+        const keywordsInput = document.getElementById('keywords');
+        const toneSelect = document.getElementById('tone');
+        const resultDiv = document.getElementById('result');
+        const bioText = document.getElementById('bioText');
+        const copyBtn = document.getElementById('copyBtn');
+
+        form.addEventListener('submit', async (e) => {
             e.preventDefault();
-            const keywords = document.getElementById('keywords').value;
-            const resultsDiv = document.getElementById('results');
-            const bioList = document.getElementById('bioList');
-            bioList.innerHTML = ''; 
-            resultsDiv.classList.remove('hidden');
+            const keywords = keywordsInput.value;
+            const tone = toneSelect.value;
+            // In a real app, this would hit a backend API
+            bioText.textContent = `[AI-generated bio for Keywords: ${keywords}, Tone: ${tone}.]
+            ✨ Living my best life | Exploring the world one step at a time! 📍 Your City Name ✉️ Reach out for collabs!`;
+            resultDiv.classList.remove('hidden');
+        });
 
-            // Simulate API call (replace with actual AI API integration and Stripe)
-            const mockBios = [
-                `Dog owner 🐾 | Exploring the world one paw print at a time ✈️ | Coffee enthusiast ☕`, 
-                `Wanderlust seeker & code weaver 💻 | Making memories, taking photos 📸 | fueled by passion.`, 
-                `Life's an adventure, embrace it! ✨ | Travel junkie 🌍 | Building dreams, one line of code at a time.`
-            ];
-            mockBios.forEach(bio => {
-                const li = document.createElement('li');
-                li.textContent = bio;
-                bioList.appendChild(li);
-            });
-            // In a real app, this is where you'd call an API and then trigger Stripe Checkout
-            // Example: const response = await fetch('/api/generate-bio', { method: 'POST', body: JSON.stringify({ keywords }) });
-            // const data = await response.json();
-            // data.bios.forEach(bio => { /* add to list */ });
-            // Trigger Stripe checkout if payment is required first
-
+        copyBtn.addEventListener('click', () => {
+            navigator.clipboard.writeText(bioText.textContent);
+            alert('Bio copied to clipboard!');
         });
     </script>
 </body>
