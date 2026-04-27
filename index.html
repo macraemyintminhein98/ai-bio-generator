@@ -3,21 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Bio Generator</title>
+    <title>BioBoost AI</title>
+    <meta name="description" content="Generate stunning Instagram bios with AI.">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <style>
-        body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; background-color: #f0f2f5; margin: 0; }
-        .container { background-color: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); text-align: center; max-width: 500px; width: 90%; }
-        h1 { color: #333; margin-bottom: 15px; }
-        p { color: #666; margin-bottom: 25px; }
-        .button { background-color: #007bff; color: white; padding: 12px 25px; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; text-decoration: none; display: inline-block; transition: background-color 0.3s ease; }
-        .button:hover { background-color: #0056b3; }
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+        body { font-family: 'Poppins', sans-serif; }
     </style>
 </head>
-<body>
-    <div class="container">
-        <h1>Craft Your Perfect Instagram Bio with AI</h1>
-        <p>Tired of generic bios? Unlock engaging, personalized Instagram bios in seconds. Tell our AI about yourself, your brand, or your desired vibe, and watch it craft a bio that stands out. Elevate your online presence today!</p>
-        <a href="#" class="button" onclick="alert('Payment integration coming soon! Stay tuned. Your AI bio awaits!');">Get Your AI Bio Now! ($9.99)</a>
+<body class="bg-gradient-to-r from-purple-500 to-pink-500 min-h-screen flex items-center justify-center p-4">
+    <div class="bg-white rounded-xl shadow-2xl p-8 max-w-lg w-full text-center transform hover:scale-105 transition-transform duration-300">
+        <h1 class="text-4xl font-bold text-gray-800 mb-4">BioBoost AI</h1>
+        <p class="text-lg text-gray-600 mb-6">Craft your perfect Instagram bio, instantly.</p>
+        <form id="bioForm" class="space-y-4">
+            <div>
+                <input type="text" id="keywords" placeholder="Keywords (e.g., travel, foodie, entrepreneur)" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-400 outline-none">
+            </div>
+            <div>
+                <select id="tone" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-400 outline-none bg-white">
+                    <option value="">Select Tone</option>
+                    <option value="professional">Professional</option>
+                    <option value="funny">Funny</option>
+                    <option value="aesthetic">Aesthetic</option>
+                    <option value="inspirational">Inspirational</option>
+                </select>
+            </div>
+            <button type="submit" class="w-full bg-purple-600 text-white p-3 rounded-lg font-semibold text-lg hover:bg-purple-700 transition-colors duration-300">
+                Generate Bio for $9.99
+            </button>
+        </form>
+        <div id="bioOutput" class="mt-6 bg-gray-50 p-4 rounded-lg border border-gray-200 text-left hidden">
+            <p class="text-gray-700 font-medium">Your AI-generated bio:</p>
+            <p id="generatedBio" class="mt-2 text-gray-800 text-lg"></p>
+        </div>
+        <footer class="text-sm text-gray-500 mt-8">© 2023 BioBoost AI. All rights reserved.</footer>
     </div>
+    <script>
+        // Placeholder for future AI integration and Stripe checkout
+        const form = document.getElementById('bioForm');
+        const bioOutputDiv = document.getElementById('bioOutput');
+        const generatedBioParagraph = document.getElementById('generatedBio');
+
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const keywords = document.getElementById('keywords').value;
+            const tone = document.getElementById('tone').value;
+
+            if (!keywords || !tone) {
+                alert('Please enter keywords and select a tone.');
+                return;
+            }
+            
+            // Simulate AI generation and payment integration
+            bioOutputDiv.classList.remove('hidden');
+            generatedBioParagraph.textContent = `[AI-generated bio based on keywords: '${keywords}' and tone: '${tone}']`;
+            alert('Integration with AI and Stripe coming soon! Displaying a placeholder bio.');
+            // In a real app, this would trigger an API call to your backend
+            // which then calls OpenAI and processes payment via Stripe.
+        });
+    </script>
 </body>
 </html>
