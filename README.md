@@ -1,12 +1,12 @@
-# AI Bio Generator
+# BioGenie AI ✨
 
-Craft creative and engaging Instagram bios using AI, tailored to your keywords and themes. Perfect for influencers, businesses, and anyone needing a fresh online presence.
+## AI-Powered Instagram Bio Generator
+
+BioGenie AI helps you craft creative, engaging, and emoji-rich Instagram bios in seconds. Just enter your keywords (e.g., 'entrepreneur', 'traveler', 'foodie'), and let our AI suggest fresh ideas. Perfect for influencers, small business owners, and anyone looking to boost their Instagram presence!
 
 **Features:**
-- AI-powered bio generation
-- Keyword and theme customization
-- Simple, intuitive interface
+- Keyword-based bio generation
+- Quick & punchy suggestions
+- Emoji-rich output
 
-**How to use:** Visit our website, input your desired keywords, and get instant, unique Instagram bio suggestions.
-
-**Price:** $9.99 for instant access.
+Get started now and make your Instagram bio shine! ✨
