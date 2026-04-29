@@ -3,75 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BioBoost - AI Instagram Bio Generator</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css">
+    <title>AI Instagram Bio Generator</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #f0f2f5; }
-        .container { max-width: 800px; }
-        textarea { resize: none; }
+        body { background-color: #f0f2f5; }
+        .container { max-width: 768px; }
     </style>
 </head>
 <body class="flex items-center justify-center min-h-screen">
     <div class="container bg-white p-8 rounded-lg shadow-md w-full">
-        <h1 class="text-4xl font-bold text-center mb-6 text-gray-800">BioBoost</h1>
-        <p class="text-center text-gray-600 mb-8">Craft the perfect Instagram bio with AI ✨</p>
-
+        <h1 class="text-3xl font-bold text-center mb-6 text-gray-800">AI Instagram Bio Generator</h1>
+        <p class="text-center text-gray-600 mb-8">Craft the perfect Instagram bio with AI!</p>
         <div class="mb-6">
-            <label for="interests" class="block text-sm font-medium text-gray-700 mb-2">Interests/Keywords (e.g., tech, travel, foodie)</label>
-            <input type="text" id="interests" class="w-full p-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500" placeholder="e.g., entrepreneur, digital nomad, coffee lover">
+            <label for="keywords" class="block text-gray-700 text-sm font-bold mb-2">Keywords (e.g., travel, foodie, adventurer):</label>
+            <input type="text" id="keywords" class="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Enter keywords, separated by commas">
         </div>
-
-        <div class="mb-6">
-            <label for="tone" class="block text-sm font-medium text-gray-700 mb-2">Desired Tone</label>
-            <select id="tone" class="w-full p-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
-                <option value="friendly">Friendly</option>
-                <option value="professional">Professional</option>
-                <option value="witty">Witty</option>
-                <option value="inspirational">Inspirational</option>
-            </select>
+        <button id="generateBtn" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded focus:outline-none focus:shadow-outline w-full mb-6">
+            Generate Bio
+        </button>
+        <div id="results" class="bg-gray-100 p-4 rounded-md hidden">
+            <h2 class="text-xl font-semibold mb-3 text-gray-800">Your AI-Generated Bios:</h2>
+            <div id="bioOutput" class="space-y-3 text-gray-700"></div>
         </div>
-
-        <button id="generateBtn" class="w-full bg-blue-600 text-white p-3 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 mb-6">Generate Bio</button>
-
-        <div id="outputSection" class="hidden">
-            <label for="generatedBio" class="block text-sm font-medium text-gray-700 mb-2">Your AI-Generated Bio:</label>
-            <textarea id="generatedBio" rows="4" class="w-full p-3 border border-gray-300 rounded-md bg-gray-50 focus:outline-none" readonly></textarea>
-            <button id="copyBtn" class="mt-4 bg-green-500 text-white p-2 rounded-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50">Copy Bio</button>
-        </div>
-        
-        <div class="mt-8 text-center text-gray-500 text-sm">
-            Powered by APEX
+        <div class="text-center mt-8 text-gray-500 text-sm">
+            <p>&copy; 2023 APEX. All rights reserved.</p>
         </div>
     </div>
-
     <script>
         document.getElementById('generateBtn').addEventListener('click', async () => {
-            // In a real app, this would make an API call to a backend that uses AI
-            const interests = document.getElementById('interests').value;
-            const tone = document.getElementById('tone').value;
-            const generatedBioField = document.getElementById('generatedBio');
-            const outputSection = document.getElementById('outputSection');
-
-            // Simulate AI generation
-            const sampleBios = {
-                'friendly': `Lover of ${interests || 'life'} ✨ | Spreading good vibes, one post at a time. | Coffee enthusiast ☕`, 
-                'professional': `Professionally navigating ${interests || 'my field'} | Building, learning, growing. | Connect with me!`, 
-                'witty': `My life is 90% coffee, 10% ${interests || 'chaos'}. | Trying to be a rainbow in someone's cloud. 🌈`, 
-                'inspirational': `Inspiring daily through ${interests || 'my journey'}. | Believe in yourself & shine. ✨ | Dream big, work hard.`
-            };
-            
-            generatedBioField.value = sampleBios[tone] || 'Your awesome AI-generated bio will appear here.';
-            outputSection.classList.remove('hidden');
-
-            // In a real scenario, after generation, we'd prompt for payment for full access/
-            // If payment isn't handled yet, you'd integrate Stripe here.
-        });
-
-        document.getElementById('copyBtn').addEventListener('click', () => {
-            const generatedBioField = document.getElementById('generatedBio');
-            generatedBioField.select();
-            document.execCommand('copy');
-            alert('Bio copied to clipboard!');
+            const keywords = document.getElementById('keywords').value;
+            if (!keywords) {
+                alert('Please enter some keywords.');
+                return;
+            }
+            document.getElementById('generateBtn').textContent = 'Generating...';
+            document.getElementById('generateBtn').disabled = true;
+            try {
+                // Placeholder for actual API call
+                const response = await fetch('/api/generate-bio', { 
+                  method: 'POST', 
+                  headers: { 'Content-Type': 'application/json' }, 
+                  body: JSON.stringify({ keywords }) 
+                });
+                if (!response.ok) throw new Error('API request failed');
+                const data = await response.json();
+                const bioOutput = document.getElementById('bioOutput');
+                bioOutput.innerHTML = '';
+                data.bios.forEach(bio => {
+                    const bioDiv = document.createElement('div');
+                    bioDiv.className = 'p-3 bg-white border border-gray-200 rounded flex justify-between items-center';
+                    bioDiv.innerHTML = `<span>${bio}</span><button onclick="navigator.clipboard.writeText('${bio.replace(/'/g, "\'")}')" class="ml-4 text-blue-500 hover:text-blue-700 text-sm">Copy</button>`;
+                    bioOutput.appendChild(bioDiv);
+                });
+                document.getElementById('results').classList.remove('hidden');
+            } catch (error) {
+                console.error('Error generating bio:', error);
+                alert('Failed to generate bio. Please try again.');
+            } finally {
+                document.getElementById('generateBtn').textContent = 'Generate Bio';
+                document.getElementById('generateBtn').disabled = false;
+            }
         });
     </script>
 </body>
