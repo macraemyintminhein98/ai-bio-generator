@@ -3,104 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Bio Generator</title>
+    <title>BioGenius AI</title>
     <style>
-        body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; background-color: #f0f2f5; margin: 0; }
-        .container { background: white; padding: 25px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); width: 90%; max-width: 500px; text-align: center; }
-        h1 { color: #333; margin-bottom: 20px; }
-        label { display: block; margin-top: 15px; margin-bottom: 5px; font-weight: bold; text-align: left; }
-        input[type="text"], select { width: calc(100% - 20px); padding: 10px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 4px; }
-        button { background-color: #007bff; color: white; padding: 12px 20px; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; width: 100%; }
-        button:hover { background-color: #0056b3; }
-        #results { margin-top: 25px; text-align: left; border-top: 1px solid #eee; padding-top: 20px; }
-        .bio-output { background-color: #e9ecef; padding: 10px; border-radius: 4px; margin-bottom: 10px; white-space: pre-wrap; font-size: 0.9em; }
-        #loading { display: none; margin-top: 15px; color: #555; }
+        body { font-family: sans-serif; margin: 20px; background-color: #f4f7f6; color: #333; }
+        .container { max-width: 600px; margin: auto; background: #fff; padding: 25px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+        h1 { text-align: center; color: #3b82f6; margin-bottom: 25px; }
+        label { display: block; margin-bottom: 8px; font-weight: bold; color: #555; }
+        textarea { width: 100%; padding: 12px; margin-bottom: 20px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; resize: vertical; min-height: 80px; font-size: 16px; }
+        button { width: 100%; padding: 14px; background-color: #3b82f6; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 18px; font-weight: bold; transition: background-color 0.2s ease; }
+        button:hover { background-color: #2563eb; }
+        #results { margin-top: 30px; padding: 18px; background-color: #e2e8f0; border-radius: 6px; border: 1px dashed #94a3b8; min-height: 100px; line-height: 1.6; color: #2d3748; white-space: pre-wrap; font-size: 15px; }
+        .loading { text-align: center; margin-top: 20px; color: #666; font-style: italic; }
+        .price { text-align: center; margin-top: 20px; font-size: 1.1em; color: #555; }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>AI Bio Generator</h1>
-        <p>Craft the perfect Instagram bio with AI!</p>
-        <label for="keywords">Keywords (e.g., photographer, traveler):</label>
-        <input type="text" id="keywords" placeholder="Separate with commas">
-
-        <label for="tone">Desired Tone:</label>
-        <select id="tone">
-            <option value="witty">Witty</option>
-            <option value="professional">Professional</option>
-            <option value="minimalist">Minimalist</option>
-            <option value="creative">Creative</option>
-            <option value="adventurous">Adventurous</option>
-        </select>
-
-        <button id="generateBtn">Generate Bios ($1)</button>
-        <div id="loading">Generating...</div>
-        <div id="results"></div>
+        <h1>BioGenius AI</h1>
+        <p class="price">Generate your perfect Instagram bio for just $2.99!</p>
+        <label for="keywords">Enter keywords/descriptors (e.g., 'travel blogger', 'foodie', 'developer', 'sustainable living'):</label>
+        <textarea id="keywords" placeholder="Start typing..."></textarea>
+        <button onclick="generateBio()">Generate Bio</button>
+        <div id="results">Your captivating bio options will appear here!</div>
+        <div id="loading" class="loading" style="display: none;">Generating magic... please wait!</div>
     </div>
 
-    <script src="https://js.stripe.com/v3/"></script>
     <script>
-        const stripe = Stripe('YOUR_STRIPE_PUBLIC_KEY'); // Replace with your actual public key
-        const generateBtn = document.getElementById('generateBtn');
-        const keywordsInput = document.getElementById('keywords');
-        const toneSelect = document.getElementById('tone');
-        const resultsDiv = document.getElementById('results');
-        const loadingDiv = document.getElementById('loading');
+        async function generateBio() {
+            const keywords = document.getElementById('keywords').value;
+            const resultsDiv = document.getElementById('results');
+            const loadingDiv = document.getElementById('loading');
 
-        generateBtn.addEventListener('click', async () => {
-            loadingDiv.style.display = 'block';
-            resultsDiv.innerHTML = '';
+            if (!keywords.trim()) {
+                resultsDiv.innerText = 'Please enter some keywords to generate a bio.';
+                return;
+            }
+
+            resultsDiv.innerText = ''; // Clear previous results
+            loadingDiv.style.display = 'block'; // Show loading indicator
 
             try {
-                // In a real app, this would hit a Vercel serverless function endpoint
-                // that creates a Stripe Checkout session.
-                const response = await fetch('/api/create-checkout-session', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ keywords: keywordsInput.value, tone: toneSelect.value })
-                });
-                const session = await response.json();
+                // In a real application, this would call a backend API that then calls OpenAI
+                // For this mock, we'll simulate a delayed response
+                const mockResponses = [
+                    `Wanderlust-fueled adventurer 🌍 | Capturing moments, creating memories. Let's explore together!`, 
+                    `Food enthusiast & recipe creator 🍝 | Sharing delicious bites and kitchen adventures. Follow for flavour!`, 
+                    `Code architect by day, dream chaser by night 🚀 | Building digital experiences. Always learning, always growing.`, 
+                    `Advocating for a greener tomorrow ♻️ | Sustainable living, one mindful step at a time. Join the eco-journey! `
+                ];
+                const randomIndex = Math.floor(Math.random() * mockResponses.length);
+                
+                await new Promise(resolve => setTimeout(resolve, 2000)); // Simulate API call delay
 
-                const result = await stripe.redirectToCheckout({
-                    sessionId: session.id
-                });
+                resultsDiv.innerText = `Here are some ideas:
 
-                if (result.error) {
-                    alert(result.error.message);
-                    loadingDiv.style.display = 'none';
-                }
+1. ${mockResponses[randomIndex]}
+2. Passionate about [keyword 1] and [keyword 2]. Living life creatively. 
+3. Crafting digital stories & real-life adventures. Let's connect!`;
+
+                // In a real setup, trigger a payment flow here after successful generation
+                // For example, redirect to Stripe checkout or show a modal.
+                alert('Bio generated! (Stripe checkout integration would follow here for payment)');
+
             } catch (error) {
-                console.error('Error:', error);
-                alert('Failed to initiate checkout. Please try again.');
-                loadingDiv.style.display = 'none';
+                console.error('Error generating bio:', error);
+                resultsDiv.innerText = 'Oops! Something went wrong. Please try again.';
+            } finally {
+                loadingDiv.style.display = 'none'; // Hide loading indicator
             }
-        });
-
-        // This is a placeholder. In a real app, successful checkout would trigger
-        // a webhook to generate and display the bios.
-        // For this simplified example, we'll simulate a gen after an imagined success.
-        document.addEventListener('DOMContentLoaded', () => {
-            const urlParams = new URLSearchParams(window.location.search);
-            if (urlParams.get('payment_status') === 'success') {
-                loadingDiv.textContent = 'Payment successful! Generating your bios...';
-                loadingDiv.style.display = 'block';
-                // Simulate AI bio generation after payment success, normally done via webhook
-                setTimeout(() => {
-                    const mockBios = [
-                        "📸 Capturing life's fleeting moments. Wanderlust with a lens. Dreamer. Creator.",
-                        "Professional photographer with a passion for storytelling through stills. Let's create magic.",
-                        "Minimalist | Photographer | Explorer of light and shadow."
-                    ];
-                    loadingDiv.style.display = 'none';
-                    mockBios.forEach(bio => {
-                        const bioEl = document.createElement('p');
-                        bioEl.className = 'bio-output';
-                        bioEl.textContent = bio;
-                        resultsDiv.appendChild(bioEl);
-                    });
-                }, 2000);
-            }
-        });
+        }
     </script>
 </body>
 </html>
