@@ -3,138 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Bio Generator</title>
+    <title>BioBoost AI - Instagram Bio Generator</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <script src="https://js.stripe.com/v3/"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .container { max-width: 800px; }
+    </style>
 </head>
-<body class="bg-gray-100 flex items-center justify-center min-h-screen p-4">
-    <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
-        <h1 class="text-3xl font-bold mb-6 text-center text-gray-800">AI Bio Generator</h1>
-        <p class="text-center text-gray-600 mb-6">Craft your perfect Instagram bio instantly!</p>
-        
-        <div id="app-content">
-            <textarea id="bio-prompt" class="w-full p-3 border border-gray-300 rounded mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500" rows="4" placeholder="Tell me about yourself, your niche, or keywords (e.g., 'dog lover, travel, photographer')"></textarea>
-            <button id="generate-button" class="w-full bg-blue-600 text-white py-3 rounded-md hover:bg-blue-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4">Generate Bio (1 credit)</button>
-            
-            <div id="generated-bios" class="hidden mt-6">
-                <h2 class="text-lg font-semibold mb-3 text-gray-800">Your New Bios:</h2>
-                <div id="bio-output" class="space-y-3"></div>
-                <button id="copy-button" class="mt-4 w-full bg-green-600 text-white py-2 rounded-md hover:bg-green-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-green-500">Copy Latest Bio</button>
-            </div>
-            
-            <div id="credits-section" class="mt-6 text-center">
-                <p class="text-gray-700 mb-3" id="credit-info">You have 0 credits remaining.</p>
-                <button id="buy-credits-button" class="bg-purple-600 text-white py-2 px-4 rounded-md hover:bg-purple-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-purple-500">Buy More Credits ($9.99)</button>
-            </div>
+<body class="bg-gray-50 text-gray-800 antialiased h-screen flex flex-col justify-between">
+    <header class="bg-white shadow p-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-2xl font-bold text-indigo-600">BioBoost AI</h1>
+            <nav>
+                <a href="#how-it-works" class="text-gray-600 hover:text-indigo-600 px-3 py-2">How it Works</a>
+                <a href="#pricing" class="text-gray-600 hover:text-indigo-600 px-3 py-2">Pricing</a>
+            </nav>
         </div>
+    </header>
 
-        <div id="loading" class="hidden text-center mt-4 text-blue-600 font-semibold">Generating...</div>
-        <div id="error-message" class="hidden text-center mt-4 text-red-600"></div>
-    </div>
-
-    <script>
-        const stripe = Stripe('pk_test_YOUR_STRIPE_PUBLIC_KEY'); // Replace with your public key
-        let credits = 0; // Initialize credits
-
-        document.addEventListener('DOMContentLoaded', () => {
-            updateCreditsDisplay();
+    <main class="flex-grow flex items-center justify-center py-12 px-4">
+        <div class="container mx-auto text-center">
+            <h2 class="text-4xl md:text-5xl font-extrabold mb-6 leading-tight">Craft Your Perfect Instagram Bio with AI</h2>
+            <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">Input your vibe, keywords, and emojis – get multiple catchy bios in seconds.</p>
             
-            document.getElementById('generate-button').addEventListener('click', generateBio);
-            document.getElementById('copy-button').addEventListener('click', copyBio);
-            document.getElementById('buy-credits-button').addEventListener('click', buyCredits);
-        });
-
-        async function generateBio() {
-            if (credits <= 0) {
-                displayError("Please buy credits to generate more bios.");
-                return;
-            }
-
-            const prompt = document.getElementById('bio-prompt').value;
-            if (!prompt.trim()) {
-                displayError("Please enter a prompt.");
-                return;
-            }
+            <div class="bg-white p-8 rounded-lg shadow-xl border border-indigo-100 max-w-lg mx-auto">
+                <form action="#" method="POST">
+                    <textarea class="w-full p-3 border border-gray-300 rounded-lg mb-4 focus:ring-2 focus:ring-indigo-500 focus:border-transparent" rows="4" placeholder="Tell us about yourself, your niche, keywords, favorite emojis... (e.g., 'Travel Blogger, adventurous, coffee lover, always exploring ✈️☕')"></textarea>
+                    <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded-lg text-lg transition duration-300 ease-in-out transform hover:scale-105">
+                        Generate Your Bio Now!
+                    </button>
+                    <p class="text-sm text-gray-500 mt-4">Secure payment via Stripe. One-time bio generation.</p>
+                </form>
+            </div>
             
-            showLoading(true);
-            displayError("");
-            document.getElementById('generated-bios').classList.add('hidden');
+        </div>
+    </main>
 
-            try {
-                // In a real app, this would call your backend endpoint
-                const response = await fetch('/api/generate-bio', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ prompt })
-                });
-
-                if (!response.ok) {
-                    throw new Error('Failed to generate bio');
-                }
-
-                const data = await response.json();
-                const bioOutput = document.getElementById('bio-output');
-                bioOutput.innerHTML = `<p class="bg-gray-50 p-2 rounded border border-gray-200">${data.bio}</p>`;
-                document.getElementById('generated-bios').classList.remove('hidden');
-                credits--; // Decrement credit on successful generation
-                updateCreditsDisplay();
-            } catch (error) {
-                console.error('Error generating bio:', error);
-                displayError('Failed to generate bio. Please try again.');
-            } finally {
-                showLoading(false);
-            }
-        }
-
-        function copyBio() {
-            const latestBio = document.querySelector('#bio-output p');
-            if (latestBio) {
-                navigator.clipboard.writeText(latestBio.innerText).then(() => {
-                    alert('Bio copied to clipboard!');
-                }).catch(err => {
-                    console.error('Failed to copy text: ', err);
-                });
-            }
-        }
-
-        async function buyCredits() {
-            // In a real app, this would interact with your backend to create a Stripe Checkout Session
-            const response = await fetch('/api/create-checkout-session', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ priceId: 'price_12345' }) // Replace with your actual Stripe Price ID
-            });
-            const session = await response.json();
-
-            const result = await stripe.redirectToCheckout({
-                sessionId: session.id
-            });
-
-            if (result.error) {
-                displayError(result.error.message);
-            } else {
-                // On success (handled by Stripe redirect), update credits in your backend
-                // For this simplistic example, we'll just add credits directly.
-                credits += 5; // Example: Add 5 credits for a purchase
-                updateCreditsDisplay();
-            }
-        }
-
-        function updateCreditsDisplay() {
-            document.getElementById('credit-info').innerText = `You have ${credits} credits remaining.`;
-            document.getElementById('generate-button').disabled = (credits <= 0);
-        }
-
-        function showLoading(isLoading) {
-            document.getElementById('loading').classList.toggle('hidden', !isLoading);
-            document.getElementById('app-content').classList.toggle('hidden', isLoading);
-        }
-
-        function displayError(message) {
-            const errorDiv = document.getElementById('error-message');
-            errorDiv.innerText = message;
-            errorDiv.classList.toggle('hidden', !message);
-        }
-    </script>
+    <footer class="bg-gray-800 text-white p-4 text-center">
+        <p>&copy; 2023 BioBoost AI. All rights reserved.</p>
+    </footer>
 </body>
 </html>
