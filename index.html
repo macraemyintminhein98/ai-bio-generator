@@ -3,66 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Instagram Bio Generator</title>
+    <title>BioGenie AI</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <style>
-        body { background-color: #f0f2f5; }
+        body { font-family: sans-serif; }
         .container { max-width: 768px; }
+        @keyframes gradient-animation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
     </style>
 </head>
-<body class="flex items-center justify-center min-h-screen">
-    <div class="container bg-white p-8 rounded-lg shadow-md w-full">
-        <h1 class="text-3xl font-bold text-center mb-6 text-gray-800">AI Instagram Bio Generator</h1>
-        <p class="text-center text-gray-600 mb-8">Craft the perfect Instagram bio with AI!</p>
-        <div class="mb-6">
-            <label for="keywords" class="block text-gray-700 text-sm font-bold mb-2">Keywords (e.g., travel, foodie, adventurer):</label>
-            <input type="text" id="keywords" class="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Enter keywords, separated by commas">
-        </div>
-        <button id="generateBtn" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded focus:outline-none focus:shadow-outline w-full mb-6">
-            Generate Bio
-        </button>
-        <div id="results" class="bg-gray-100 p-4 rounded-md hidden">
-            <h2 class="text-xl font-semibold mb-3 text-gray-800">Your AI-Generated Bios:</h2>
-            <div id="bioOutput" class="space-y-3 text-gray-700"></div>
-        </div>
-        <div class="text-center mt-8 text-gray-500 text-sm">
-            <p>&copy; 2023 APEX. All rights reserved.</p>
+<body class="bg-zinc-900 text-white min-h-screen flex items-center justify-center p-4">
+    <div class="container mx-auto bg-zinc-800 p-8 rounded-lg shadow-lg text-center">
+        <h1 class="text-4xl font-bold mb-4 bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 text-transparent bg-clip-text animate-gradient-animation" style="background-size: 200% 200%;">BioGenie AI</h1>
+        <p class="text-xl mb-6 text-zinc-300">Craft the perfect Instagram bio with AI.</p>
+        <form id="bio-form" class="space-y-4">
+            <input type="text" id="keywords" placeholder="Keywords (e.g., travel, entrepreneur, foodie)" class="w-full p-3 rounded bg-zinc-700 border border-zinc-600 text-white placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-pink-500">
+            <select id="tone" class="w-full p-3 rounded bg-zinc-700 border border-zinc-600 text-white focus:outline-none focus:ring-2 focus:ring-pink-500">
+                <option value="">Select Tone</option>
+                <option value="funny">Funny</option>
+                <option value="professional">Professional</option>
+                <option value="aesthetic">Aesthetic</option>
+                <option value="inspirational">Inspirational</option>
+                <option value="quirky">Quirky</option>
+            </select>
+            <button type="submit" class="w-full bg-pink-600 hover:bg-pink-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105">
+                Generate My Bio!
+            </button>
+        </form>
+        <div id="result" class="mt-8 p-6 bg-zinc-700 rounded-lg hidden">
+            <h2 class="text-2xl font-semibold mb-3 text-pink-400">Your New Bio:</h2>
+            <p id="generated-bio" class="text-lg text-zinc-200 mb-4"></p>
+            <button onclick="window.location.href='#'" class="bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-4 rounded transition duration-300">Copy & Pay $9.99</button>
         </div>
     </div>
     <script>
-        document.getElementById('generateBtn').addEventListener('click', async () => {
+        document.getElementById('bio-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
             const keywords = document.getElementById('keywords').value;
-            if (!keywords) {
-                alert('Please enter some keywords.');
-                return;
-            }
-            document.getElementById('generateBtn').textContent = 'Generating...';
-            document.getElementById('generateBtn').disabled = true;
-            try {
-                // Placeholder for actual API call
-                const response = await fetch('/api/generate-bio', { 
-                  method: 'POST', 
-                  headers: { 'Content-Type': 'application/json' }, 
-                  body: JSON.stringify({ keywords }) 
-                });
-                if (!response.ok) throw new Error('API request failed');
-                const data = await response.json();
-                const bioOutput = document.getElementById('bioOutput');
-                bioOutput.innerHTML = '';
-                data.bios.forEach(bio => {
-                    const bioDiv = document.createElement('div');
-                    bioDiv.className = 'p-3 bg-white border border-gray-200 rounded flex justify-between items-center';
-                    bioDiv.innerHTML = `<span>${bio}</span><button onclick="navigator.clipboard.writeText('${bio.replace(/'/g, "\'")}')" class="ml-4 text-blue-500 hover:text-blue-700 text-sm">Copy</button>`;
-                    bioOutput.appendChild(bioDiv);
-                });
-                document.getElementById('results').classList.remove('hidden');
-            } catch (error) {
-                console.error('Error generating bio:', error);
-                alert('Failed to generate bio. Please try again.');
-            } finally {
-                document.getElementById('generateBtn').textContent = 'Generate Bio';
-                document.getElementById('generateBtn').disabled = false;
-            }
+            const tone = document.getElementById('tone').value;
+            // Simulate API call for demonstration
+            const loadingText = 'Generating your bio...';
+            document.getElementById('generated-bio').innerText = loadingText;
+            document.getElementById('result').classList.replace('hidden', 'block');
+            await new Promise(r => setTimeout(r, 2000)); // Simulate delay
+            
+            const dummyBios = {
+                'funny': `Spreading smiles like glitter. ✨ (And occasionally tripping over flat surfaces).`, 
+                'professional': `Innovator | Strategist | Driving results with passion and precision.`, 
+                'aesthetic': `Chasing sunsets & dreams. 🌸 Living deliberately.`, 
+                'inspirational': `Believer in possibilities. Empowering others to shine brighter.`, 
+                'quirky': `My life is 90% coffee, 10% existential dread, and 100% awesome. ☕`, 
+                'default': `Crafted by AI for your unique vibe. Try different keywords/tones!`
+            };
+            document.getElementById('generated-bio').innerText = dummyBios[tone] || dummyBios['default'];
         });
     </script>
 </body>
