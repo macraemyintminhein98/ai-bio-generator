@@ -1,16 +1,13 @@
-# BioGenius AI
+# AI Instagram Bio Generator
 
-Generate creative and engaging Instagram bios using AI! Simply enter a few keywords about yourself or your brand, and BioGenius AI will craft unique bio options for you.
+Generate creative and engaging Instagram bios using AI based on your keywords. Perfect for influencers, businesses, and content creators. Simply enter your interests or niche, and get multiple bio options instantly!
 
-## Features:
-- AI-powered bio generation.
-- Simple, intuitive interface.
-- Perfect for influencers, businesses, and personal brands.
+**Features:**
+- AI-powered bio generation
+- Customizable with keywords
+- Easy copy-to-clipboard functionality
 
-## How It Works (Mockup):
-1. Enter keywords in the textarea.
+**How to use:**
+1. Enter keywords describing your Instagram focus (e.g., 'travel blogger', 'foodie', 'adventurer').
 2. Click 'Generate Bio'.
-3. View AI-suggested bios. (In a full product, this would trigger a payment and then display results).
-
-## Project Status:
-This `index.html` serves as a high-fidelity mockup. The full product would integrate with a backend AI API (e.g., OpenAI) and a payment gateway (e.g., Stripe).
+3. Choose from the AI-generated options and copy your favorite!
