@@ -3,47 +3,91 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BioBoost AI</title>
+    <title>BioGenius AI</title>
+    <meta name="description" content="Generate creative, personalized Instagram bios with AI.">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <style>
-        .max-w-7xl { max-width: 80rem; }
-        body { background-color: #f7fafc; }
+        body { @apply bg-gradient-to-br from-purple-600 to-indigo-800 text-white min-h-screen flex flex-col justify-center items-center p-4; }
+        .container { @apply bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg rounded-xl shadow-2xl p-8 max-w-2xl w-full; }
+        h1 { @apply text-4xl font-extrabold mb-4 text-center; }
+        p { @apply text-lg text-center mb-8; }
+        .form-group { @apply mb-4; }
+        label { @apply block text-sm font-bold mb-2; }
+        input, textarea, select { @apply shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline; }
+        button { @apply bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full; }
+        .output { @apply mt-6 p-4 bg-gray-700 bg-opacity-30 rounded-lg text-white font-mono whitespace-pre-wrap; }
     </style>
 </head>
-<body class="font-sans antialiased text-gray-800">
-    <header class="bg-white shadow py-6">
-        <div class="container mx-auto px-6 text-center">
-            <h1 class="text-4xl font-bold text-indigo-600">BioBoost AI</h1>
-            <p class="mt-2 text-lg text-gray-600">Craft your perfect Instagram bio instantly.</p>
-        </div>
-    </header>
-    <main class="container mx-auto px-6 py-12 flex flex-col items-center">
-        <section class="bg-white rounded-lg shadow-xl p-8 max-w-2xl w-full">
-            <h2 class="text-2xl font-semibold mb-6 text-center">Generate Your Bio</h2>
-            <form action="/api/generate" method="POST" class="space-y-4">
-                <div>
-                    <label for="industry" class="block text-sm font-medium text-gray-700">Industry/Niche:</label>
-                    <input type="text" id="industry" name="industry" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="e.g., tech entrepreneur, fashion blogger">
-                </div>
-                <div>
-                    <label for="hobbies" class="block text-sm font-medium text-gray-700">Hobbies/Interests:</label>
-                    <input type="text" id="hobbies" name="hobbies" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="e.g., hiking, reading, cooking">
-                </div>
-                <div>
-                    <label for="tone" class="block text-sm font-medium text-gray-700">Desired Tone:</label>
-                    <input type="text" id="tone" name="tone" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="e.g., professional, witty, adventurous">
-                </div>
-                <button type="submit" class="w-full bg-indigo-600 text-white py-3 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition duration-150 ease-in-out">
-                    Generate Bios
-                </button>
-            </form>
-            <div id="generated-bios" class="mt-8 space-y-4">
-                <!-- Generated bios will be injected here via JS -->
+<body>
+    <div class="container">
+        <h1>BioGenius AI</h1>
+        <p>Craft your perfect Instagram bio instantly with AI.</p>
+        <form id="bioForm">
+            <div class="form-group">
+                <label for="interests">Interests (comma-separated):</label>
+                <input type="text" id="interests" placeholder="Tech, Yoga, Travel" class="text-black">
             </div>
-        </section>
-    </main>
-    <footer class="py-8 text-center text-gray-500 text-sm">
-        &copy; 2023 BioBoost AI. All rights reserved.
-    </footer>
+            <div class="form-group">
+                <label for="profession">Profession:</label>
+                <input type="text" id="profession" placeholder="Software Developer" class="text-black">
+            </div>
+            <div class="form-group">
+                <label for="vibe">Desired Vibe:</label>
+                <select id="vibe" class="text-black">
+                    <option value="">Select...</option>
+                    <option value="professional">Professional</option>
+                    <option value="creative">Creative</option>
+                    <option value="playful">Playful</option>
+                    <option value="inspirational">Inspirational</option>
+                </select>
+            </div>
+            <button type="submit" id="generateBtn">Generate Bio</button>
+        </form>
+        <div id="output" class="output hidden"></div>
+        <button id="copyBtn" class="copyBtn hidden mt-4 bg-green-500 hover:bg-green-700">Copy Bio</button>
+    </div>
+    <script>
+        document.getElementById('bioForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const interests = document.getElementById('interests').value;
+            const profession = document.getElementById('profession').value;
+            const vibe = document.getElementById('vibe').value;
+            const outputDiv = document.getElementById('output');
+            const generateBtn = document.getElementById('generateBtn');
+            const copyBtn = document.getElementById('copyBtn');
+
+            outputDiv.textContent = 'Generating...';
+            outputDiv.classList.remove('hidden');
+            generateBtn.disabled = true;
+            copyBtn.classList.add('hidden');
+
+            // In a real application, this would call a Vercel serverless function
+            // For this example, we'll simulate a response.
+            const simulatedBio = `✨ ${profession ? profession : 'Enthusiast'} | ${interests || 'Curious Soul'} | ${vibe || 'Living my best life'} ✨\nConnecting, creating & exploring.`;
+            
+            setTimeout(() => {
+                outputDiv.textContent = simulatedBio;
+                copyBtn.classList.remove('hidden');
+                generateBtn.disabled = false;
+            }, 1500);
+
+            // Real integration example (pseudo-code):
+            // const response = await fetch('/api/generate-bio', {
+            //     method: 'POST',
+            //     headers: { 'Content-Type': 'application/json' },
+            //     body: JSON.stringify({ interests, profession, vibe })
+            // });
+            // const data = await response.json();
+            // outputDiv.textContent = data.bio;
+
+        });
+
+        document.getElementById('copyBtn').addEventListener('click', () => {
+            const outputDiv = document.getElementById('output');
+            navigator.clipboard.writeText(outputDiv.textContent)
+                .then(() => alert('Bio copied to clipboard!'))
+                .catch(err => console.error('Failed to copy text: ', err));
+        });
+    </script>
 </body>
 </html>
