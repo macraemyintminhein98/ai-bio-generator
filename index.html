@@ -3,34 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BioGenie - AI Instagram Bio Generator</title>
-    <meta name="description" content="Generate creative, personalized Instagram bios instantly.">
-    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <title>BioBoost AI</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
-        body { font-family: 'Poppins', sans-serif; }
+        .max-w-7xl { max-width: 80rem; }
+        body { background-color: #f7fafc; }
     </style>
 </head>
-<body class="bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 min-h-screen flex items-center justify-center p-4">
-    <div class="bg-white rounded-lg shadow-xl p-8 max-w-md w-full text-center">
-        <h1 class="text-4xl font-bold text-gray-800 mb-4">BioGenie ✨</h1>
-        <p class="text-lg text-gray-600 mb-6">Craft your perfect Instagram bio with AI!</p>
-        <form action="/generate-bio" method="POST" class="space-y-4">
-            <input type="text" name="keywords" placeholder="Keywords (e.g., travel, foodie, tech)" class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500">
-            <select name="tone" class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500">
-                <option value="">Select Tone</option>
-                <option value="funny">Funny</option>
-                <option value="professional">Professional</option>
-                <option value="inspirational">Inspirational</option>
-                <option value="playful">Playful</option>
-            </select>
-            <input type="text" name="emoji_pref" placeholder="Emoji preferences (e.g., 🚀🌟)" class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500">
-            <button type="submit" class="w-full bg-blue-600 text-white p-3 rounded-md font-semibold hover:bg-blue-700 transition duration-300 ease-in-out">
-                Generate My Bio!
-            </button>
-        </form>
-        <p class="mt-6 text-gray-500 text-sm">Powered by intelligent AI. Results may vary.</p>
-        <p class="mt-2 text-gray-400 text-xs">Click 'Generate My Bio!' to unlock options. Pricing on next step.</p>
-    </div>
+<body class="font-sans antialiased text-gray-800">
+    <header class="bg-white shadow py-6">
+        <div class="container mx-auto px-6 text-center">
+            <h1 class="text-4xl font-bold text-indigo-600">BioBoost AI</h1>
+            <p class="mt-2 text-lg text-gray-600">Craft your perfect Instagram bio instantly.</p>
+        </div>
+    </header>
+    <main class="container mx-auto px-6 py-12 flex flex-col items-center">
+        <section class="bg-white rounded-lg shadow-xl p-8 max-w-2xl w-full">
+            <h2 class="text-2xl font-semibold mb-6 text-center">Generate Your Bio</h2>
+            <form action="/api/generate" method="POST" class="space-y-4">
+                <div>
+                    <label for="industry" class="block text-sm font-medium text-gray-700">Industry/Niche:</label>
+                    <input type="text" id="industry" name="industry" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="e.g., tech entrepreneur, fashion blogger">
+                </div>
+                <div>
+                    <label for="hobbies" class="block text-sm font-medium text-gray-700">Hobbies/Interests:</label>
+                    <input type="text" id="hobbies" name="hobbies" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="e.g., hiking, reading, cooking">
+                </div>
+                <div>
+                    <label for="tone" class="block text-sm font-medium text-gray-700">Desired Tone:</label>
+                    <input type="text" id="tone" name="tone" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="e.g., professional, witty, adventurous">
+                </div>
+                <button type="submit" class="w-full bg-indigo-600 text-white py-3 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition duration-150 ease-in-out">
+                    Generate Bios
+                </button>
+            </form>
+            <div id="generated-bios" class="mt-8 space-y-4">
+                <!-- Generated bios will be injected here via JS -->
+            </div>
+        </section>
+    </main>
+    <footer class="py-8 text-center text-gray-500 text-sm">
+        &copy; 2023 BioBoost AI. All rights reserved.
+    </footer>
 </body>
 </html>
