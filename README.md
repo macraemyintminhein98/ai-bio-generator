@@ -1,5 +1,17 @@
-# BioGenie ✨ - AI-Powered Instagram Bio Generator
+# AI Bio Generator
 
-Craft unique and engaging Instagram bios in seconds with BioGenie. Just tell our AI a little about yourself, and get personalized suggestions to make your profile shine. Perfect for influencers, businesses, and anyone looking to boost their online presence!
+Instantly craft amazing Instagram bios using AI! Input your interests, niche, and desired tone, and get multiple creative variations. Enhance your online presence with catchy, tailor-made bios for influencers, businesses, and personal brands.
 
-This is a simple frontend mock-up. The full product would integrate with a backend for AI generation and Stripe for payments.
+## Features:
+- AI-powered bio generation
+- Multiple variations
+- User-friendly interface
+
+## Get Started:
+[Link to your web application (once deployed)]
+
+## Built With:
+- HTML
+- Tailwind CSS
+- JavaScript
+- (Future: Next.js, AI API integration like Hugging Face, Stripe for payments)
