@@ -1,17 +1,12 @@
-# AI Bio Generator
+# InstaBio AI
 
-Instantly craft amazing Instagram bios using AI! Input your interests, niche, and desired tone, and get multiple creative variations. Enhance your online presence with catchy, tailor-made bios for influencers, businesses, and personal brands.
+Instantly generate captivating and personalized Instagram bios using AI. Just input your style, keywords, and preferred emoji, and get multiple creative options to choose from. Perfect for individuals, influencers, and businesses looking to enhance their Instagram presence.
 
-## Features:
+## Features
 - AI-powered bio generation
-- Multiple variations
-- User-friendly interface
+- Customizable tone and emoji preferences
+- Multiple bio options
+- Simple, intuitive interface
 
-## Get Started:
-[Link to your web application (once deployed)]
-
-## Built With:
-- HTML
-- Tailwind CSS
-- JavaScript
-- (Future: Next.js, AI API integration like Hugging Face, Stripe for payments)
+## Get Started
+Visit our website to generate your unique Instagram bio today!
